@@ -273,6 +273,9 @@ button:hover {
     font-weight: bold;
     color: black;  /* Black text for center button */
 }
+.input-btns button:hover{
+    transform: scale(1.1);
+}
 
 .input-btns .equals {
     background-color: skyblue;  /* Blue background for equals button */
