@@ -9,36 +9,155 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     height: 100vh;  /* Full viewport height */
-    background-color: #f4f4f4;
+    background-color: #f4f4f4;  /* Light theme background */
     display: flex;  /* Use flexbox */
     justify-content: center;  /* Center horizontally */
     align-items: center;  /* Center vertically */
     padding: 20px;  /* Optional, adds spacing around content */
 }
 
-/* Header style
+/* Header style */
 .header {
-    position: sticky;
+    position: fixed;  /* Fixes the header at the top */
     top: 0;
-    background-color: #fff;
-    padding: 15px;
-    text-align: center;
-    font-size: 20px;
+    left: 0;
+    width: 100%;  /* Make the header take the full width */
+    padding: 10px 20px;
+    background-color: #1E1E1E;  /* Dark background for the header */
+    font-size: 16px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 100; 
-} */
+    z-index: 1000;  /* Ensure the header is above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-container {
+    font-size: 18px;
+    color: #E0E0E0;  /* Light gray text color */
+}
+
+.theme-toggle-btn {
+    background-color: #3A8DFF;  /* Lighter blue for the button */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #0065A1;  /* Darker blue on hover */
+}
+
+/* Dark Theme styles */
+body.dark-theme {
+    background-color: #121212;  /* Dark background */
+    color: #E0E0E0;  /* Light text color */
+}
+
+.main.dark-theme {
+    background-color: #2A2A3D;  /* Dark purple-gray background for the main content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.calc-body.dark-theme {
+    background-color: #33334D;  /* Slightly lighter dark purple for the calc body */
+}
+
+.input-display.dark-theme,
+.output-display.dark-theme {
+    background-color: #4B4B69;  /* Dark background with a purplish tone for display fields */
+    color: white;
+    border: 1px solid #6A6A8B;  /* Light purple border for inputs */
+}
+
+/* Button styling for Dark Mode */
+button.dark-theme {
+    background-color: #6B5B95;  /* A soft purple shade for the button */
+    color: white;  /* White text for contrast */
+    border: 1px solid #7F7FB3;  /* Light purple border */
+    font-weight: bold;
+    padding: 10px 20px;  /* Padding for button */
+    border-radius: 8px;  /* Rounded corners */
+    cursor: pointer;  /* Indicate it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth transition on hover */
+}
+
+button.dark-theme:hover {
+    background-color: #594A7A;  /* Darker purple for hover */
+    transform: scale(1.05);  /* Slight enlargement on hover */
+}
+
+button:active.dark-theme {
+    background-color: #4C3A63;  /* Even darker purple for active press */
+    transform: scale(0.98);  /* Slight shrink on press */
+}
+
+button.dark-theme:focus {
+    outline: none;  /* Remove outline to maintain sleek design */
+    box-shadow: 0 0 5px 2px rgba(124, 61, 145, 0.6);  /* Subtle purple glow for focus state */
+}
+
+/* Styling for the input buttons in dark mode */
+.input-btns button.dark-theme {
+    background-color: #4B4B69;  /* Dark background for input buttons */
+    color: white;  /* White text for input buttons */
+    border: 1px solid #6A6A8B;  /* Light purple border */
+    padding: 13px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-btns button.dark-theme:hover {
+    background-color: #3D3D62;  /* Darker purple on hover */
+}
+
+/* Styling for the center button in input buttons */
+.input-btns .center {
+    background-color: #7A6B9A;  /* Lighter purple background for center button */
+    font-weight: bold;
+    color: white;  /* White text */
+}
+
+/* Equal button (in dark mode) */
+.input-btns .equals {
+    background-color: #5C5C8D;  /* Soft dark purple for equals button */
+    color: white;
+    border: 1px solid #7F7FB3;  /* Light purple border */
+}
+
+.input-btns .equals:hover {
+    background-color: #4D4A76;  /* Darker purple for hover effect */
+}
+
+/* Make sure the other buttons in dark mode have visibility */
+.input-btns button.dark-theme {
+    background-color: #5C5C8D;  /* Soft dark purple for other buttons */
+    color: white;
+    border: 1px solid #7F7FB3;  /* Light purple border */
+}
+
+.input-btns button.dark-theme:hover {
+    background-color: #4D4A76;  /* Darker shade on hover */
+}
 
 /* Main container (calculator) */
 .main {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: #fff;  /* Light background for the calculator */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;  /* Fixed width for the calculator */
+    width: 555px;  /* Fixed width for the calculator */
     z-index: 10;  /* Ensure the main card appears above the background */
     max-width: 100%;  /* Prevent overflow on smaller screens */
 }
@@ -58,17 +177,19 @@ body {
     font-size: 24px;
     height: 40px;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0;  /* Light background for input field */
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: right;
+    width: 100%;
 }
 
 .output-display {
+    width: 100%;
     font-size: 24px;
     height: 40px;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0;  /* Light background for output field */
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: right;
@@ -84,14 +205,14 @@ body {
 .DEG-F-E button {
     padding: 8px;
     font-size: 14px;
-    background-color: #e0e0e0;
+    background-color: #e0e0e0;  /* Light gray for buttons */
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .DEG-F-E button:hover {
-    background-color: #d0d0d0;
+    background-color: #d0d0d0;  /* Slightly darker gray on hover */
 }
 
 .M-btns {
@@ -101,13 +222,14 @@ body {
 }
 
 .M-btns button:hover {
-    background-color: #d0d0d0;
+    background-color: #d0d0d0;  /* Slightly darker gray on hover */
 }
 
 .drop-down-btns {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    border: none;
 }
 
 .drop-down-btns>div {
@@ -117,7 +239,7 @@ body {
 button {
     padding: 10px;
     font-size: 16px;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0;  /* Light background for buttons */
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -126,7 +248,7 @@ button {
 }
 
 button:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0;  /* Slightly darker gray on hover */
 }
 
 .input-btns {
@@ -139,7 +261,7 @@ button:hover {
 .input-btns button {
     font-size: 14px;
     padding: 13px;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0;  /* Light background for input buttons */
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -149,22 +271,23 @@ button:hover {
 .input-btns .center {
     background-color: white;
     font-weight: bold;
+    color: black;  /* Black text for center button */
 }
 
 .input-btns .equals {
-    background-color: skyblue;
+    background-color: skyblue;  /* Blue background for equals button */
 }
 
 .search-history {
     margin-top: 20px;
     width: 100%;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9;  /* Light background for search history */
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-history p {
     font-size: 14px;
-    color: #888;
+    color: #888;  /* Gray color for text */
 }

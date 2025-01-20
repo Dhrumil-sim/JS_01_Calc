@@ -10,7 +10,10 @@
 
 <body>
     <div class="header">
-        
+        <div class="time-container">
+            <span id="current-day"></span> | <span id="current-time"></span>
+        </div>
+        <button class="theme-toggle-btn" id="theme-toggle">Dark Mode</button>
     </div>
     <div class="main">
         <div class="calc-body">
@@ -113,5 +116,47 @@
         </div>
     </div>
 </body>
+<script>
+    // Function to update the current date and time
+    function updateTime() {
+        const now = new Date();
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const day = days[now.getDay()];
+        const time = now.toLocaleTimeString();
+        document.getElementById('current-day').textContent = day;
+        document.getElementById('current-time').textContent = time;
+    }
+
+    // Call updateTime every second
+    setInterval(updateTime, 1000);
+
+    // Dark theme toggle functionality
+    const themeToggleButton = document.getElementById('theme-toggle');
+    themeToggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        document.querySelector('.main').classList.toggle('dark-theme');
+        document.querySelector('.calc-body').classList.toggle('dark-theme');
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.classList.toggle('dark-theme');
+        });
+        const displayElements = document.querySelectorAll('.input-display, .output-display');
+        displayElements.forEach(element => {
+            element.classList.toggle('dark-theme');
+        });
+        document.querySelector('.search-history').classList.toggle('dark-theme');
+        
+        // Change button text based on the theme
+        if (document.body.classList.contains('dark-theme')) {
+            themeToggleButton.textContent = 'Light Mode';
+        } else {
+            themeToggleButton.textContent = 'Dark Mode';
+        }
+    });
+
+    // Initialize time on page load
+    updateTime();
+</script>
+
 
 </html>
