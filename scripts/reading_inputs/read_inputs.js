@@ -1,5 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+import { tokenize } from '../utils/tokenize.js';
+import {evaluate} from '../utils/evaluate.js';
+document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display'); // The input field where we show the user's input
+    const trigFunctionSelect = document.getElementById('trigo-functions');
+    const mathFunctionSelect = document.getElementById('math-functions');
 
     // Function to append input to the input field
     function appendToInput(value) {
@@ -10,14 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.input-btns button'); // Select all buttons in the calculator
 
     buttons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const inputField = document.getElementById('input-display');
             const buttonText = button.textContent.trim(); // Use .trim() to avoid whitespace issues
-    
+
             if (buttonText === "=") {
                 try {
-                    // Evaluate the entered expression in the input field
-                    const result = eval(inputField.value); 
+                   
+                   const trigFunction = trigFunctionSelect.value;
+                   const mathFunction = mathFunctionSelect.value; 
+                   const tokens = tokenize(inputField.value, trigFunction , mathFunction);
+                   console.log(tokens);
+                   const result = evaluate(tokens);
                     document.getElementById('output-display').value = result; // Display result
                     console.log("Result of calculation: " + result); // Log the result
                 } catch (error) {
@@ -28,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Append the button text to the input field if it's not the "=" button
                 inputField.value += buttonText;
             }
-        
+
         });
 
-        
+
     });
 
     // 2. Handle keyboard input
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         // Check if input field is focused. If yes, prevent adding duplicate characters.
         if (document.activeElement === inputField) {
             return; // Don't process keydown events if the input field is focused
@@ -52,7 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (key === 'Enter') {
             event.preventDefault(); // Prevent default behavior (form submission, page reload)
             try {
-                const result = eval(inputField.value); // Evaluate the entered expression
+                 const trigFunction = trigFunctionSelect.value;
+                   const mathFunction = mathFunctionSelect.value; 
+                   const tokens = tokenize(inputField.value, trigFunction , mathFunction);
+                   const result = evaluate(tokens);
                 document.getElementById('output-display').value = result; // Display the result in the output field
                 console.log("Result of calculation: " + result); // Log the result
             } catch (error) {
