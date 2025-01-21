@@ -1,15 +1,8 @@
-  const inputField = document.getElementById('input-display');    
-  const squareButton = document.getElementById('square');
+  const inputField = document.getElementById('input-display');
 
-  function appendToInput(value)
-  {
-    if(inputField.value===''){
-        inputField.value = value;
-    }
-    else{
-        inputField.value+=value;
-    }
-  }
+  const buttons = document.querySelectorAll('.input-btns button');
+    
+  const squareButton = document.getElementById('square');
 export function displaySquareCube()
     {
          if(squareButton.id === 'square'){
@@ -33,25 +26,25 @@ export function displaySquareCube()
                 }
          }
     }
-
-// Helper function to toggle button text and id (for square/cube button)
-function toggleButtonText(button, text1, text2, id1, id2) {
-    button.classList.add('toggling');
-    if (button.innerHTML === text1) {
-        button.innerHTML = text2;
-        button.id = id2;
-    } else {
-        button.innerHTML = text1;
-        button.id = id1;
-    }
-    setTimeout(() => {
-        button.classList.remove('toggling');
-    }, 500); // 500ms = 0.5 second
+ export  function toggleSquareBtn(){
+                
+        squareButton.classList.add('toggling');
+        
+        if(squareButton.innerHTML === 'x<sup>2</sup>')
+        {
+            squareButton.innerHTML = 'x<sup>3</sup>';
+            squareButton.id = 'cube';
+        }
+        else if(squareButton.innerHTML === 'x<sup>3</sup>'){
+            squareButton.innerHTML = 'x<sup>2</sup>';
+            squareButton.id = 'square';
+        }   
+        
+        setTimeout(() => {
+            squareButton.classList.remove('toggling');
+        }, 500); // 1000ms = 1 second
 }
 
-export function toggleSquareBtn() {
-    toggleButtonText(squareButton, 'x<sup>2</sup>', 'x<sup>3</sup>', 'square', 'cube');
-}
 export function displayOneHalf()
 {
 
@@ -177,58 +170,5 @@ export function displayRoot() {
         inputField.value = '2√x';
     } else {
         inputField.value = '2√' + inputField.value;
-    }
-}
-
-export function toggleSign() {
-    if (inputField.value) {
-        if (inputField.value[0] === '-') {
-            inputField.value = inputField.value.slice(1);  // Remove the negative sign
-        } else {
-            inputField.value = '-' + inputField.value;  // Add the negative sign
-        }
-    }
-}
-export function displayMathFunction(functionName) {
-
-    switch (functionName) {
-        case 'rand':
-            appendToInput('Math.random()');
-            break;
-        case 'ceil':
-            appendToInput('Math.ceil(');
-            break;
-        case 'floor':
-            appendToInput('Math.floor(');
-            break;
-        default:
-            break;
-    }
-}
-export function displayTrigoFunction(func) {
-    const inputField = document.getElementById('input-display');
-    const inputValue = inputField.value;
-
-    switch (func) {
-        case 'sin':
-            inputField.value = `sin(${inputValue})`;
-            break;
-        case 'cos':
-            inputField.value = `cos(${inputValue})`;
-            break;
-        case 'tan':
-            inputField.value = `tan(${inputValue})`;
-            break;
-        case 'cot':
-            inputField.value = `cot(${inputValue})`;
-            break;
-        case 'sec':
-            inputField.value = `sec(${inputValue})`;
-            break;
-        case 'csc':
-            inputField.value = `csc(${inputValue})`;
-            break;
-        default:
-            break;
     }
 }
