@@ -171,4 +171,60 @@ export function displayRoot() {
     } else {
         inputField.value = '2√' + inputField.value;
     }
+<<<<<<< HEAD
+=======
+}
+
+export function toggleSign() {
+    if (inputField.value) {
+        if (inputField.value[0] === '-') {
+            inputField.value = inputField.value.slice(1);  // Remove the negative sign
+        } else {
+            inputField.value = '-' + inputField.value;  // Add the negative sign
+        }
+    }
+}
+export function handleMathFunction(functionName) {
+    switch (functionName) {
+        case 'rand':
+            appendToInput('rand()');
+            console.log(functionName);
+            break;
+        case 'ceil':
+            appendToInput('ceil(');
+            break;
+        case 'sqrt':
+            appendToInput('sqrt(');
+            break;
+        default:
+            break;
+    }
+}
+export function displayTrigoFunction(func) {
+    const inputField = document.getElementById('input-display');
+    const inputValue = inputField.value;
+
+    switch (func) {
+        case 'sin':
+            inputField.value = `sin(${inputValue})`;
+            break;
+        case 'cos':
+            inputField.value = `cos(${inputValue})`;
+            break;
+        case 'tan':
+            inputField.value = `tan(${inputValue})`;
+            break;
+        case 'cot':
+            inputField.value = `cot(${inputValue})`;
+            break;
+        case 'sec':
+            inputField.value = `sec(${inputValue})`;
+            break;
+        case 'csc':
+            inputField.value = `csc(${inputValue})`;
+            break;
+        default:
+            break;
+    }
+>>>>>>> parent of 2bd81b5... feat: mathfunction issue solved
 }
