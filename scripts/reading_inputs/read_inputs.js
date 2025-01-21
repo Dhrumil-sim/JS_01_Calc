@@ -1,8 +1,9 @@
 import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
-
+import { processCalculation } from "../utils/calculate.js";
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
     const buttons = document.querySelectorAll('.input-btns button');
+    const outputField = document.getElementById('output-display');
    
 
     // Button Click Event Handling
@@ -91,6 +92,11 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'ln':
                 displayLog(buttonId);
                 break;
+            case 'equal':
+                const input = inputField.value;
+                    const result = processCalculation(input); // Call the callback function
+                    outputField.value = result; // Update the display with the result
+                    break;
             default:
                 // Directly access the clicked button's text when no matching case
                 inputField.value += buttonText;
@@ -123,13 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case '.':
                 inputField.value += key;
-                break;
-            case 'Enter':
-                try {
-                    inputField.value = eval(inputField.value); // Consider using a safer method for evaluation
-                } catch (err) {
-                    inputField.value = "Error";
-                }
                 break;
             case 'Backspace':
                 inputField.value = inputField.value.slice(0, -1);
@@ -172,6 +171,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'q': // For sqrt, square root
                 inputField.value += 'sqrt(';
+                break;
+            case 'Enter':
+                    const input = inputField.value;
+                    const result = processCalculation(input); // Call the callback function
+                    outputField.value = result; // Update the display with the result
                 break;
             default:
                 break;
