@@ -1,7 +1,7 @@
   const inputField = document.getElementById('input-display');    
   const squareButton = document.getElementById('square');
 
-  function appendToInpout(value)
+  function appendToInput(value)
   {
     if(inputField.value===''){
         inputField.value = value;
@@ -189,7 +189,22 @@ export function toggleSign() {
         }
     }
 }
-
+export function handleMathFunction(functionName) {
+    switch (functionName) {
+        case 'rand':
+            appendToInput('rand()');
+            console.log(functionName);
+            break;
+        case 'ceil':
+            appendToInput('ceil(');
+            break;
+        case 'sqrt':
+            appendToInput('sqrt(');
+            break;
+        default:
+            break;
+    }
+}
 export function displayTrigoFunction(func) {
     const inputField = document.getElementById('input-display');
     const inputValue = inputField.value;
