@@ -171,8 +171,6 @@ export function displayRoot() {
     } else {
         inputField.value = '2√' + inputField.value;
     }
-<<<<<<< HEAD
-=======
 }
 
 export function toggleSign() {
@@ -226,5 +224,4 @@ export function displayTrigoFunction(func) {
         default:
             break;
     }
->>>>>>> parent of 2bd81b5... feat: mathfunction issue solved
 }
