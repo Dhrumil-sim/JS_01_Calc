@@ -245,8 +245,12 @@ button {
     cursor: pointer;
     width: 100%;
     margin-bottom: 10px;
+    transition: all 1s ease; 
 }
+button.toggling {
 
+    opacity: 0.5;  /* Make button semi-transparent during transition */
+}
 button:hover {
     background-color: #e0e0e0;  /* Slightly darker gray on hover */
 }

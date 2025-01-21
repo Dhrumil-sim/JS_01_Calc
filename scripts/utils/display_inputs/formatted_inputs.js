@@ -17,12 +17,19 @@ export function displaySquareCube()
          }
          if(squareButton.id === 'cube')
          {
-            console.log("Display cube format");
+            if(inputField.value=== '')
+                {
+                    inputField.value += '0^3';
+                }
+                else{
+                    inputField.value+='^3';
+                }
          }
     }
  export  function toggleSquareBtn(){
                 
-                      
+        squareButton.classList.add('toggling');
+        
         if(squareButton.innerHTML === 'x<sup>2</sup>')
         {
             squareButton.innerHTML = 'x<sup>3</sup>';
@@ -32,4 +39,8 @@ export function displaySquareCube()
             squareButton.innerHTML = 'x<sup>2</sup>';
             squareButton.id = 'square';
         }   
+        
+        setTimeout(() => {
+            squareButton.classList.remove('toggling');
+        }, 500); // 1000ms = 1 second
 }
