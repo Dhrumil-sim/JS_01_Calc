@@ -189,17 +189,17 @@ export function toggleSign() {
         }
     }
 }
-export function handleMathFunction(functionName) {
+export function displayMathFunction(functionName) {
+
     switch (functionName) {
         case 'rand':
-            appendToInput('rand()');
-            console.log(functionName);
+            appendToInput('Math.random()');
             break;
         case 'ceil':
-            appendToInput('ceil(');
+            appendToInput('Math.ceil(');
             break;
-        case 'sqrt':
-            appendToInput('sqrt(');
+        case 'floor':
+            appendToInput('Math.floor(');
             break;
         default:
             break;
