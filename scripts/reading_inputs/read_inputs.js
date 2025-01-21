@@ -1,9 +1,9 @@
-import {handleMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
+import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
     const buttons = document.querySelectorAll('.input-btns button');
-    const mathSelect = document.getElementById('math-functions');
+   
 
     // Button Click Event Handling
     buttons.forEach(button => {
@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
         displayTrigoFunction(selectedFunction);
     });
 
+    const mathSelect = document.getElementById('math-functions');
     mathSelect.addEventListener('change', function () {
         const selectedFunction = mathSelect.value;
-        handleMathFunction(selectedFunction);
+        displayMathFunction(selectedFunction);
     });
 
 

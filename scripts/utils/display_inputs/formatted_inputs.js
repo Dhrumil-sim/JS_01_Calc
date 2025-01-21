@@ -3,6 +3,14 @@
   const buttons = document.querySelectorAll('.input-btns button');
     
   const squareButton = document.getElementById('square');
+
+  function appendToInput(value) {
+    if (inputField.value === '') {
+        inputField.value = value; // If the input field is empty, insert the value
+    } else {
+        inputField.value += value; // Otherwise, append the value
+    }
+}
 export function displaySquareCube()
     {
          if(squareButton.id === 'square'){
@@ -182,7 +190,7 @@ export function toggleSign() {
         }
     }
 }
-export function handleMathFunction(functionName) {
+export function displayMathFunction(functionName) {
     switch (functionName) {
         case 'rand':
             appendToInput('rand()');
@@ -195,6 +203,7 @@ export function handleMathFunction(functionName) {
             appendToInput('sqrt(');
             break;
         default:
+            console.log("this is hitting!");
             break;
     }
 }
