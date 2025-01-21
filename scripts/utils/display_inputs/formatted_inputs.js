@@ -172,3 +172,31 @@ export function displayRoot() {
         inputField.value = '2√' + inputField.value;
     }
 }
+
+export function displayTrigoFunction(func) {
+    const inputField = document.getElementById('input-display');
+    const inputValue = inputField.value;
+
+    switch (func) {
+        case 'sin':
+            inputField.value = `sin(${inputValue})`;
+            break;
+        case 'cos':
+            inputField.value = `cos(${inputValue})`;
+            break;
+        case 'tan':
+            inputField.value = `tan(${inputValue})`;
+            break;
+        case 'cot':
+            inputField.value = `cot(${inputValue})`;
+            break;
+        case 'sec':
+            inputField.value = `sec(${inputValue})`;
+            break;
+        case 'csc':
+            inputField.value = `csc(${inputValue})`;
+            break;
+        default:
+            break;
+    }
+}

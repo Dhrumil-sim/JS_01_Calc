@@ -1,15 +1,15 @@
-import { displaySquareCube , toggleSquareBtn, displayOneHalf, displayModulus, displayExp , displayMod, displayPi ,displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog} from "../utils/display_inputs/formatted_inputs.js";
-document.addEventListener('DOMContentLoaded',function(){
+import { displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
+document.addEventListener('DOMContentLoaded', function () {
 
     const inputField = document.getElementById('input-display');
 
     const buttons = document.querySelectorAll('.input-btns button');
-    
+
     const squareButton = document.getElementById('square');
 
-    
+
     buttons.forEach(button => {
-        button.addEventListener('click',function(e){
+        button.addEventListener('click', function (e) {
             let buttonId = this.id;
             handleButtonClick(buttonId);
         });
@@ -17,68 +17,75 @@ document.addEventListener('DOMContentLoaded',function(){
 
     document.addEventListener('keydown', function (e) {
         const key = e.key; // Get the pressed key
+
+        if (document.activeElement === inputField) {
+            return; // Don't process keydown if the input field is focused
+        }
         handleKeyPress(key);
     });
 
-    function handleButtonClick(buttonId)
-    {
-       
-        switch(buttonId)
-        {
-          case '2nd-toggle':
+    const trigoSelect = document.getElementById('trigo-functions');
+    trigoSelect.addEventListener('change', function () {
+        const selectedFunction = trigoSelect.value;
+        displayTrigoFunction(selectedFunction);
+    });
+
+    function handleButtonClick(buttonId) {
+
+        switch (buttonId) {
+            case '2nd-toggle':
                 toggleSquareBtn();
-                 break;
-          case 'square':
-         case 'cube':
-                 displaySquareCube();
-                 break;
-         case '1/x':
+                break;
+            case 'square':
+            case 'cube':
+                displaySquareCube();
+                break;
+            case '1/x':
                 displayOneHalf();
                 break;
-         case 'modulus':
-               displayModulus();
-               break;
-         case 'exp':
-              displayExp();
-              break;
-         case 'mod':
-             displayMod();
-             break;
-         
-         // first row buttons
-         case 'pi':
-             displayPi();
-             break;
-         case 'e':
-             displayE();
-             break;
-         case 'C':
-             displayC();
-             break;
-         case 'Del':
-             displayDel();
-             break;
-         case '2root':
-             displayRoot();
-             break;
-         case 'fact':
-             displayNFactorial();
-             break;
-         case 'x^y':
-         case '10^x':
-             displayXPowerY(buttonId);
-             break;
-         case 'log':
-         case 'ln':
-             displayLog(buttonId);
-             break;
-         default:
-             const buttonText = button.innerText.trim();
-             if(buttonText==='')
-             {
-                 inputField.value = "invalid";
-             }
-             inputField.value += buttonText;
+            case 'modulus':
+                displayModulus();
+                break;
+            case 'exp':
+                displayExp();
+                break;
+            case 'mod':
+                displayMod();
+                break;
+
+            // first row buttons
+            case 'pi':
+                displayPi();
+                break;
+            case 'e':
+                displayE();
+                break;
+            case 'C':
+                displayC();
+                break;
+            case 'Del':
+                displayDel();
+                break;
+            case '2root':
+                displayRoot();
+                break;
+            case 'fact':
+                displayNFactorial();
+                break;
+            case 'x^y':
+            case '10^x':
+                displayXPowerY(buttonId);
+                break;
+            case 'log':
+            case 'ln':
+                displayLog(buttonId);
+                break;
+            default:
+                const buttonText = button.innerText.trim();
+                if (buttonText === '') {
+                    inputField.value = "invalid";
+                }
+                inputField.value += buttonText;
         }
     }
     function handleKeyPress(key) {
@@ -106,9 +113,8 @@ document.addEventListener('DOMContentLoaded',function(){
                 inputField.value += key;
                 break;
             case 'Enter':
-                // Implement logic for calculating the result, e.g., calling the evaluate function
                 try {
-                    inputField.value = eval(inputField.value); // You might want to replace eval() for security reasons
+                    inputField.value = eval(inputField.value); // Consider using a safer method for evaluation
                 } catch (err) {
                     inputField.value = "Error";
                 }
@@ -138,11 +144,28 @@ document.addEventListener('DOMContentLoaded',function(){
             case 'f': // For factorial
                 displayNFactorial();
                 break;
+    
+            // Trigonometric functions
+            case 's': // sin
+                inputField.value += 'sin(';
+                break;
+            case 'c': // cos
+                inputField.value += 'cos(';
+                break;
+            case 't': // tan
+                inputField.value += 'tan(';
+                break;
+            case 'a': // For other trigonometric functions
+                inputField.value += 'asin(';
+                break;
+            case 'q': // For sqrt, square root
+                inputField.value += 'sqrt(';
+                break;
             default:
-                // Ignore unhandled keys
                 break;
         }
     }
+    
 
 
 });
