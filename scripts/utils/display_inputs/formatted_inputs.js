@@ -57,3 +57,118 @@ export function displayOneHalf()
         inputField.value = '1/'+ inputField.value;
      }
 }
+export function displayModulus()
+{
+    if(inputField.value==='')
+    {
+        inputField.value += '|x|';
+    }
+    else{
+        inputField.value='|'+inputField.value+"|";
+    }
+}
+export function displayExp()
+{
+    if(inputField.value==='')
+    {
+        inputField.value = 'exp^x';
+    }
+    else{
+        inputField.value = 'exp^'+inputField.value;
+    }
+}
+export function displayMod()
+{
+    if(inputField.value==='')
+    {
+        inputField.value = '1%x';
+    }
+    else{
+        inputField.value += '%'; 
+    }
+}
+export function displayPi()
+{
+    if(inputField.value==='')
+    {
+        inputField.value = ''+Math.PI;
+    }
+    else 
+    {
+        inputField.value += '*'+Math.PI;
+    }
+}
+export function displayE()
+{
+    if(inputField.value==='')
+    {
+        inputField.value = ''+2.71828;
+    }
+    else 
+    {
+        inputField.value += '*'+2.71828;
+    }
+}
+export function displayC()
+{
+    inputField.value = '';
+}
+export function displayDel()
+{
+    inputField.value = ""+inputField.value.slice(0,-1);
+}
+export function displayNFactorial() {
+    if (inputField.value === '') {
+        inputField.value = 'n!';
+    } else {
+        inputField.value += '!';
+    }
+}
+
+export function displayXPowerY(buttonId) {
+     // Check the button ID to determine which operation to perform
+   
+
+     if (buttonId === "10^x") {
+         // 10^x button logic
+         if (inputField.value === '') {
+             inputField.value = '10^';
+         } else {
+             inputField.value = '10^' + inputField.value;
+         }
+     } else if (buttonId === "x^y") {
+         // x^y button logic
+         if (inputField.value === '') {
+             inputField.value = 'x^y';
+         } else {
+             inputField.value += '^';
+         }
+     }
+}
+
+export function displayLog(buttonId) {
+
+    if(buttonId === 'log')
+    {
+    if (inputField.value === '') {
+        inputField.value = 'log';
+    } else {
+        inputField.value += 'log';
+    }
+    }
+    if(buttonId === 'ln')
+    {
+        if (inputField.value === '') {
+            inputField.value = 'ln';
+        } else {
+            inputField.value += 'ln';
+        }
+    }
+}
+export function displayRoot() {
+    if (inputField.value === '') {
+        inputField.value = '2√x';
+    } else {
+        inputField.value = '2√' + inputField.value;
+    }
+}
