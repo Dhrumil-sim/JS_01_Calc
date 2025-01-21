@@ -1,8 +1,15 @@
-  const inputField = document.getElementById('input-display');
-
-  const buttons = document.querySelectorAll('.input-btns button');
-    
+  const inputField = document.getElementById('input-display');    
   const squareButton = document.getElementById('square');
+
+  function appendToInpout(value)
+  {
+    if(inputField.value===''){
+        inputField.value = value;
+    }
+    else{
+        inputField.value+=value;
+    }
+  }
 export function displaySquareCube()
     {
          if(squareButton.id === 'square'){
@@ -26,25 +33,25 @@ export function displaySquareCube()
                 }
          }
     }
- export  function toggleSquareBtn(){
-                
-        squareButton.classList.add('toggling');
-        
-        if(squareButton.innerHTML === 'x<sup>2</sup>')
-        {
-            squareButton.innerHTML = 'x<sup>3</sup>';
-            squareButton.id = 'cube';
-        }
-        else if(squareButton.innerHTML === 'x<sup>3</sup>'){
-            squareButton.innerHTML = 'x<sup>2</sup>';
-            squareButton.id = 'square';
-        }   
-        
-        setTimeout(() => {
-            squareButton.classList.remove('toggling');
-        }, 500); // 1000ms = 1 second
+
+// Helper function to toggle button text and id (for square/cube button)
+function toggleButtonText(button, text1, text2, id1, id2) {
+    button.classList.add('toggling');
+    if (button.innerHTML === text1) {
+        button.innerHTML = text2;
+        button.id = id2;
+    } else {
+        button.innerHTML = text1;
+        button.id = id1;
+    }
+    setTimeout(() => {
+        button.classList.remove('toggling');
+    }, 500); // 500ms = 0.5 second
 }
 
+export function toggleSquareBtn() {
+    toggleButtonText(squareButton, 'x<sup>2</sup>', 'x<sup>3</sup>', 'square', 'cube');
+}
 export function displayOneHalf()
 {
 
@@ -170,6 +177,16 @@ export function displayRoot() {
         inputField.value = '2√x';
     } else {
         inputField.value = '2√' + inputField.value;
+    }
+}
+
+export function toggleSign() {
+    if (inputField.value) {
+        if (inputField.value[0] === '-') {
+            inputField.value = inputField.value.slice(1);  // Remove the negative sign
+        } else {
+            inputField.value = '-' + inputField.value;  // Add the negative sign
+        }
     }
 }
 

@@ -1,13 +1,10 @@
 import { displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
+
 document.addEventListener('DOMContentLoaded', function () {
-
     const inputField = document.getElementById('input-display');
-
     const buttons = document.querySelectorAll('.input-btns button');
 
-    const squareButton = document.getElementById('square');
-
-
+    // Button Click Event Handling
     buttons.forEach(button => {
         button.addEventListener('click', function (e) {
             let buttonId = this.id;
@@ -15,12 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Keydown Event Handling
     document.addEventListener('keydown', function (e) {
         const key = e.key; // Get the pressed key
 
         if (document.activeElement === inputField) {
             return; // Don't process keydown if the input field is focused
         }
+
         handleKeyPress(key);
     });
 
@@ -30,7 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
         displayTrigoFunction(selectedFunction);
     });
 
+
     function handleButtonClick(buttonId) {
+        const button = document.getElementById(buttonId) || event.target;
+
+        // Access the text of the clicked button
+        const buttonText = button.innerText.trim();
 
         switch (buttonId) {
             case '2nd-toggle':
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMod();
                 break;
 
-            // first row buttons
+            // First row buttons
             case 'pi':
                 displayPi();
                 break;
@@ -81,13 +85,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayLog(buttonId);
                 break;
             default:
-                const buttonText = button.innerText.trim();
-                if (buttonText === '') {
-                    inputField.value = "invalid";
-                }
+                // Directly access the clicked button's text when no matching case
                 inputField.value += buttonText;
+                break;
         }
     }
+
+
+    // Handle Key Presses
     function handleKeyPress(key) {
         switch (key) {
             case '1':
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'f': // For factorial
                 displayNFactorial();
                 break;
-    
+
             // Trigonometric functions
             case 's': // sin
                 inputField.value += 'sin(';
@@ -165,7 +170,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
         }
     }
-    
-
 
 });
