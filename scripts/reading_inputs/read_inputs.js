@@ -1,4 +1,4 @@
-import { displaySquareCube , toggleSquareBtn } from "../utils/display_inputs/formatted_inputs.js";
+import { displaySquareCube , toggleSquareBtn, displayOneHalf } from "../utils/display_inputs/formatted_inputs.js";
 document.addEventListener('DOMContentLoaded',function(){
 
     const inputField = document.getElementById('input-display');
@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded',function(){
                 case 'cube':
                         displaySquareCube();
                         break;
-
+                case '1/x':
+                       displayOneHalf();
+                       break;
                }
 
         });

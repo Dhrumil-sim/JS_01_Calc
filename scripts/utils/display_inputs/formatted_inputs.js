@@ -44,3 +44,16 @@ export function displaySquareCube()
             squareButton.classList.remove('toggling');
         }, 500); // 1000ms = 1 second
 }
+
+export function displayOneHalf()
+{
+
+     if(inputField.value === '')
+     {
+          inputField.value += '1/x';
+     }
+     else
+     {
+        inputField.value = '1/'+ inputField.value;
+     }
+}
