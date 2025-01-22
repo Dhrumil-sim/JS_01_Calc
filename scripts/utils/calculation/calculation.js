@@ -9,23 +9,16 @@ function factorial(n) {
     }
     return result;
 }
+
 // Helper function to evaluate mathematical functions
-function evaluateFunction(fn, arg) {
+function evaluateFunction(fn, base, value) {
     switch (fn) {
-        case 'sin':
-            return Math.sin(arg);
-        case 'cos':
-            return Math.cos(arg);
-        case 'tan':
-            return Math.tan(arg);
-        case 'log':
-            return Math.log(arg);  // natural log
-        case 'ln':
-            return Math.log(arg);  // natural log (same as log)
+        case 'sqrt':
+            return Math.sqrt(value); // square root
         case 'root':
-            return Math.sqrt(arg); // square root
+            return Math.pow(value, 1 / base); // nth root calculation
         default:
-            return arg;  // If the function is not recognized, return the argument as is
+            return value;  // If the function is not recognized, return the argument as is
     }
 }
 
@@ -36,9 +29,9 @@ export function calculate(expression) {
 
     let stack = [];
     let outputQueue = [];
-    let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
+    let operators = new Set(['+', '-', '*', '/', '^', '%', '!', 'root']);
     let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'root']);
+    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln']);
     let previousToken = undefined;
 
     if (!tokens) return "Invalid expression.";
@@ -70,9 +63,23 @@ export function calculate(expression) {
             console.log(`Pushed operator: ${classifiedToken.value} into stack`);
         }
 
-        
-        
-        
+        // Handle root (√)
+        else if (classifiedToken.type === 'root') {
+            console.log("Root triggered");
+
+            // The base (e.g., 2) is expected to be the last number in outputQueue
+            let value = outputQueue.pop();  // The value (e.g., 25) comes next
+            let base = outputQueue.pop();  // The base (e.g., 2) comes before the root symbol
+
+            console.log("Base: ", base);  // Should print base, like 2
+            console.log("Value: ", value);  // Should print value, like 25
+
+            // Calculate the root using the evaluateFunction
+            let ans = evaluateFunction('root', base, value);  // Pass base and value to evaluateFunction
+            console.log("Root Result: " + ans);
+
+            outputQueue.push(ans);  // Push the result back into the outputQueue
+        }
 
         // Handle factorial (i.e., '!')
         else if (classifiedToken.type === 'fact') {
