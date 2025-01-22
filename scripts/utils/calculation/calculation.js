@@ -11,14 +11,22 @@ function factorial(n) {
 }
 
 // Helper function to evaluate mathematical functions
-function evaluateFunction(fn, base, value) {
+function evaluateFunction(fn, arg) {
     switch (fn) {
+        case 'sin':
+            return Math.sin(arg);
+        case 'cos':
+            return Math.cos(arg);
+        case 'tan':
+            return Math.tan(arg);
+        case 'log':
+            return Math.log(arg);  // natural log
+        case 'ln':
+            return Math.log(arg);  // natural log (same as log)
         case 'sqrt':
-            return Math.sqrt(value); // square root
-        case 'root':
-            return Math.pow(value, 1 / base); // nth root calculation
+            return Math.sqrt(arg); // square root
         default:
-            return value;  // If the function is not recognized, return the argument as is
+            return arg;  // If the function is not recognized, return the argument as is
     }
 }
 
@@ -29,9 +37,9 @@ export function calculate(expression) {
 
     let stack = [];
     let outputQueue = [];
-    let operators = new Set(['+', '-', '*', '/', '^', '%', '!', 'root']);
+    let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
     let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln']);
+    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt']);
     let previousToken = undefined;
 
     if (!tokens) return "Invalid expression.";
@@ -63,24 +71,6 @@ export function calculate(expression) {
             console.log(`Pushed operator: ${classifiedToken.value} into stack`);
         }
 
-        // Handle root (√)
-        else if (classifiedToken.type === 'root') {
-            console.log("Root triggered");
-
-            // The base (e.g., 2) is expected to be the last number in outputQueue
-            let value = outputQueue.pop();  // The value (e.g., 25) comes next
-            let base = outputQueue.pop();  // The base (e.g., 2) comes before the root symbol
-
-            console.log("Base: ", base);  // Should print base, like 2
-            console.log("Value: ", value);  // Should print value, like 25
-
-            // Calculate the root using the evaluateFunction
-            let ans = evaluateFunction('root', base, value);  // Pass base and value to evaluateFunction
-            console.log("Root Result: " + ans);
-
-            outputQueue.push(ans);  // Push the result back into the outputQueue
-        }
-
         // Handle factorial (i.e., '!')
         else if (classifiedToken.type === 'fact') {
             // Apply factorial function to the last number in the outputQueue
@@ -109,6 +99,32 @@ export function calculate(expression) {
                 }
                 stack.pop();  // Remove the '('
                 console.log("Popped '(' from stack");
+            }
+        }
+
+        // Handle root (√)
+        else if (classifiedToken.type === 'root') {
+            console.log("Root triggered");
+
+            // Pop the number for root calculation (e.g., 25)
+            let val = outputQueue.pop();
+            
+            // Pop the base for the root calculation (e.g., 2)
+            let base = outputQueue.pop();
+            
+            console.log("Base: ", base);
+            console.log("Value: ", val);
+        
+            if (base === 2) {
+                let ans = Math.sqrt(val);  // Calculate the square root
+                console.log("Square Root Result: " + ans);
+                outputQueue.push(ans);  // Push the result back into the queue
+            } else {
+                console.log("Cube Root or Higher Root Calculation");
+                // You can extend this for cube root (base === 3) or other higher roots
+                let ans = Math.pow(val, 1 / base);  // Generic nth root calculation
+                console.log("Root Result: " + ans);
+                outputQueue.push(ans);  // Push the result back into the queue
             }
         }
     });
