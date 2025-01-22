@@ -7,7 +7,7 @@ import { setupMemoryButtons } from '../utils/memory_functions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
-    const buttons = document.querySelectorAll('.input-btns button');
+    const buttons = document.querySelectorAll('.main button');
     const outputField = document.getElementById('output-display');
    
     // Initialize memory buttons (MC, MR, MS, M+)
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         switch (buttonId) {
             case '2nd-toggle':
-                toggleSquareBtn();
+                toggleSquareBtn(buttonId);
                 break;
             case 'square':
             case 'cube':
@@ -70,16 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'mod':
                 displayMod();
                 break;
-
-            // Memory Buttons (Added memory buttons handling)
-            case 'memory-clear':
-            case 'memory-recall':
-            case 'memory-store':
-            case 'memory-add':
-                 setupMemoryButtons(buttonId);
-                break;
-
             case 'deg-toggle':
+                toggleSquareBtn(buttonId);
+                break;
+            case 'fe-toggle':
+                toggleSquareBtn(buttonId);
                 break;
             // First row buttons
             case 'pi':
@@ -110,7 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'equal':
                 const input = inputField.value;
-                calculate(input);
+                const output = calculate(input);
+                outputField.value = output;
                     break;
             default:
                 // Directly access the clicked button's text when no matching case

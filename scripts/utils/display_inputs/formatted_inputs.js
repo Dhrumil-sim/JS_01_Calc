@@ -34,24 +34,43 @@ export function displaySquareCube()
                 }
          }
     }
- export  function toggleSquareBtn(){
-                
-        squareButton.classList.add('toggling');
+    export function toggleSquareBtn(buttonId) {
+        const toggleButton = document.getElementById(buttonId);
         
-        if(squareButton.innerHTML === 'x<sup>2</sup>')
-        {
-            squareButton.innerHTML = 'x<sup>3</sup>';
-            squareButton.id = 'cube';
+        // Check if the button clicked is the 2nd-toggle button
+        if (buttonId === '2nd-toggle') {
+            const squareButton = document.getElementById('square');  // Assuming you have a square button
+            
+            squareButton.classList.add('toggling');
+            
+            if (squareButton.innerHTML === 'x<sup>2</sup>') {
+                squareButton.innerHTML = 'x<sup>3</sup>';
+                squareButton.id = 'cube';
+            } else if (squareButton.innerHTML === 'x<sup>3</sup>') {
+                squareButton.innerHTML = 'x<sup>2</sup>';
+                squareButton.id = 'square';
+            }
+    
+            setTimeout(() => {
+                squareButton.classList.remove('toggling');
+            }, 500); // 1000ms = 1 second
+        } else {
+            // For other toggle buttons, check if * is already present
+            toggleButton.classList.add('toggling');
+            
+            // If '*' is present, remove it; otherwise, add it
+            if (toggleButton.innerHTML.endsWith('*')) {
+                toggleButton.innerHTML = toggleButton.innerHTML.slice(0, -1); // Remove the last character ('*')
+            } else {
+                toggleButton.innerHTML += '*'; // Add the '*' at the end
+            }
+    
+            setTimeout(() => {
+                toggleButton.classList.remove('toggling');
+            }, 500); // 1000ms = 1 second
         }
-        else if(squareButton.innerHTML === 'x<sup>3</sup>'){
-            squareButton.innerHTML = 'x<sup>2</sup>';
-            squareButton.id = 'square';
-        }   
-        
-        setTimeout(() => {
-            squareButton.classList.remove('toggling');
-        }, 500); // 1000ms = 1 second
-}
+    }
+    
 
 export function displayOneHalf()
 {
@@ -201,6 +220,9 @@ export function displayMathFunction(functionName) {
             break;
         case 'sqrt':
             appendToInput('sqrt(');
+            break;
+        case 'floor':
+            appendToInput('floor(');
             break;
         default:
             console.log("this is hitting!");
