@@ -1,5 +1,6 @@
+import { processExpression } from "../utils/classification.js";
 import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
-import { processCalculation } from "../utils/calculate.js";
+
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
     const buttons = document.querySelectorAll('.input-btns button');
@@ -94,8 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'equal':
                 const input = inputField.value;
-                    const result = processCalculation(input); // Call the callback function
-                    outputField.value = result; // Update the display with the result
+                processExpression(input);
                     break;
             default:
                 // Directly access the clicked button's text when no matching case
@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 inputField.value += 'sqrt(';
                 break;
             case 'Enter':
-                    const input = inputField.value;
-                    const result = processCalculation(input); // Call the callback function
-                    outputField.value = result; // Update the display with the result
+                const input = inputField.value;
+                processExpression(input);
+                    break;
                 break;
             default:
                 break;
