@@ -1,12 +1,17 @@
 import { calculate } from "../utils/calculation/calculation.js";
 import { processExpression } from "../utils/calculation/classification.js";
-import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
+import { displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
+
+// Import memory button functions from memory_functions.js
+import { setupMemoryButtons } from '../utils/memory_functions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
     const buttons = document.querySelectorAll('.input-btns button');
     const outputField = document.getElementById('output-display');
    
+    // Initialize memory buttons (MC, MR, MS, M+)
+    setupMemoryButtons();
 
     // Button Click Event Handling
     buttons.forEach(button => {
@@ -39,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         displayMathFunction(selectedFunction);
     });
 
-
     function handleButtonClick(buttonId) {
         const button = document.getElementById(buttonId) || event.target;
 
@@ -67,6 +71,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMod();
                 break;
 
+            // Memory Buttons (Added memory buttons handling)
+            case 'memory-clear':
+            case 'memory-recall':
+            case 'memory-store':
+            case 'memory-add':
+                 setupMemoryButtons(buttonId);
+                break;
+
+            case 'deg-toggle':
+                break;
             // First row buttons
             case 'pi':
                 displayPi();
@@ -104,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
         }
     }
-
 
     // Handle Key Presses
     function handleKeyPress(key) {
@@ -175,9 +188,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'Enter':
                 const input = inputField.value;
-                calculate(input);
+                const output = calculate(input);
+                outputField.value = output;
                     break;
-                break;
             default:
                 break;
         }

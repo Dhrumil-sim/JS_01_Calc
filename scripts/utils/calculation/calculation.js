@@ -25,6 +25,12 @@ function evaluateFunction(fn, arg) {
             return Math.log(arg);  // natural log (same as log)
         case 'sqrt':
             return Math.sqrt(arg); // square root
+        case 'rand':
+            return Math.random(); // random number between 0 and 1
+        case 'ceil':
+            return Math.ceil(arg); // ceiling of a number
+        case 'floor':
+            return Math.floor(arg); // floor of a number
         default:
             return arg;  // If the function is not recognized, return the argument as is
     }
@@ -39,7 +45,7 @@ export function calculate(expression) {
     let outputQueue = [];
     let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
     let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt']);
+    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
     let previousToken = undefined;
 
     if (!tokens) return "Invalid expression.";
@@ -73,7 +79,6 @@ export function calculate(expression) {
 
         // Handle factorial (i.e., '!')
         else if (classifiedToken.type === 'fact') {
-            // Apply factorial function to the last number in the outputQueue
             let number = outputQueue.pop(); // Get the number before the factorial
             let result = factorial(number);  // Apply the factorial
             outputQueue.push(result);  // Push the result back into the outputQueue
@@ -81,7 +86,7 @@ export function calculate(expression) {
         }
 
         // Handle functions like sin, cos, log
-        else if (classifiedToken.type === 'TrigonometricFunction' || classifiedToken.type === 'LogarithmicFunction') {
+        else if (classifiedToken.type === 'TrigonometricFunction' || classifiedToken.type === 'LogarithmicFunction' || classifiedToken.type === 'Mathemetic function') {
             stack.push(classifiedToken.value);
             console.log(`Pushed function: ${classifiedToken.value} into stack`);
         }
@@ -102,30 +107,9 @@ export function calculate(expression) {
             }
         }
 
-        // Handle root (√)
         else if (classifiedToken.type === 'root') {
-            console.log("Root triggered");
-
-            // Pop the number for root calculation (e.g., 25)
-            let val = outputQueue.pop();
-            
-            // Pop the base for the root calculation (e.g., 2)
-            let base = outputQueue.pop();
-            
-            console.log("Base: ", base);
-            console.log("Value: ", val);
-        
-            if (base === 2) {
-                let ans = Math.sqrt(val);  // Calculate the square root
-                console.log("Square Root Result: " + ans);
-                outputQueue.push(ans);  // Push the result back into the queue
-            } else {
-                console.log("Cube Root or Higher Root Calculation");
-                // You can extend this for cube root (base === 3) or other higher roots
-                let ans = Math.pow(val, 1 / base);  // Generic nth root calculation
-                console.log("Root Result: " + ans);
-                outputQueue.push(ans);  // Push the result back into the queue
-            }
+            stack.push(classifiedToken.value);
+            console.log("Pushed root operator into stack");
         }
     });
 
@@ -171,7 +155,6 @@ export function calculate(expression) {
                     break;
                 case '!':
                     result = factorial(a);  // Apply factorial on the number a
-                    console.log("Factorial result: ", result);
                     break;
             }
             resultStack.push(result);
@@ -181,6 +164,12 @@ export function calculate(expression) {
             let result = evaluateFunction(token, arg);
             resultStack.push(result);
             console.log(`Applied function: ${token} result: ${result}`);
+        }
+        else if (token === '√') {
+            let val = resultStack.pop();  // Pop the value (e.g., 25)
+            let ans = Math.sqrt(val);  // Calculate the square root
+            resultStack.push(ans);  // Add the result
+            console.log("Square Root Result: " + ans);
         }
     });
 
