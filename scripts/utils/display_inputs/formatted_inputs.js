@@ -183,11 +183,10 @@ export function displayRoot() {
 
 export function toggleSign() {
     if (inputField.value) {
-        if (inputField.value[0] === '-') {
-            inputField.value = inputField.value.slice(1);  // Remove the negative sign
-        } else {
-            inputField.value = '-' + inputField.value;  // Add the negative sign
-        }
+        const currentValue = parseFloat(inputField.value);
+        
+        // Check if the number is negative or positive and toggle the sign
+        inputField.value = (currentValue < 0) ? Math.abs(currentValue).toString() : (-Math.abs(currentValue)).toString();
     }
 }
 export function displayMathFunction(functionName) {

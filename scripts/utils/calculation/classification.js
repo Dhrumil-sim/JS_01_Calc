@@ -1,12 +1,12 @@
 // Tokenizer: Splitting the expression into tokens
-function tokenize(expression) {
+export function tokenize(expression) {
     // Regex to match numbers, operators, variables, and parentheses
     const regex = /\d+(\.\d+)?|[a-zA-Z]+|[+\-*/^()|]|[^a-zA-Z0-9\s]|\b(cos|sin|tan|sec|csc|cot)\b/g;
     return expression.match(regex);
 }
 
 // Function to classify each token
-function classifyToken(token, previousToken) {
+export function classifyToken(token, previousToken) {
     // If the token is a number
     if (/\d+(\.\d+)?/.test(token)) {
         return { type: 'Number', value: token };
@@ -24,12 +24,9 @@ function classifyToken(token, previousToken) {
         return { type: 'Parenthesis', value: token };
     }
     else if (token === '|') {
-        if (previousToken === '|' || previousToken === undefined || previousToken === '(' || ['+', '-', '*', '/', '^', '%'].includes(previousToken)) {
-            return { type: 'ModulusOpen', value: token };  // Opening modulus
-        } else {
-            return { type: 'ModulusClose', value: token }; // Closing modulus
-        }
-    }
+       
+            return { type: 'Modulus', value: token };  // Opening modulus
+    }   
     else if(['√'].includes(token))
     {
         return {type: 'root', value:token};
