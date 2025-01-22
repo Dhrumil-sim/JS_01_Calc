@@ -43,7 +43,7 @@ export function classifyToken(token, previousToken) {
     {
          return {type: 'logarithmic function', value: token};
     }
-    else if(['rand','ceil','floor'].includes(token))
+    else if(['rand','ceil','floor','abs'].includes(token))
     {
          return {type: 'Mathemetic function',value: token};
     }

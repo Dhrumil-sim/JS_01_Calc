@@ -39,7 +39,7 @@ export function displaySquareCube()
         
         // Check if the button clicked is the 2nd-toggle button
         if (buttonId === '2nd-toggle') {
-            const squareButton = document.getElementById('square');  // Assuming you have a square button
+            const squareButton = document.getElementById('square') || document.getElementById('cube');  // Assuming you have a square button
             
             squareButton.classList.add('toggling');
             
@@ -88,10 +88,10 @@ export function displayModulus()
 {
     if(inputField.value==='')
     {
-        inputField.value += '|x|';
+        inputField.value += 'abs(x)';
     }
     else{
-        inputField.value='|'+inputField.value+"|";
+        inputField.value='+abs('+inputField.value+")";
     }
 }
 export function displayExp()

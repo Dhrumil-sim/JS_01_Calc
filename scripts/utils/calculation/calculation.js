@@ -38,141 +38,155 @@ function evaluateFunction(fn, arg) {
 
 // Main calculation function
 export function calculate(expression) {
-    let tokens = tokenize(expression);
-    console.log("Tokenized Expression: ", tokens);
-
-    let stack = [];
-    let outputQueue = [];
-    let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
-    let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-    let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
-    let previousToken = undefined;
-
-    if (!tokens) return "Invalid expression.";
-
-    // Step 1: Tokenization and classification
-    tokens.forEach(token => {
-        const classifiedToken = classifyToken(token, previousToken);
-        console.log(`Classified Token: ${classifiedToken.type} => ${classifiedToken.value}`);
-        previousToken = token;
-
-        // Handle numbers
-        if (classifiedToken.type === 'Number') {
-            outputQueue.push(parseFloat(classifiedToken.value));
-            console.log(`Pushed number: ${classifiedToken.value} into outputQueue`);
+    try {
+        if (!expression || expression.trim() === '') {
+            throw new Error("Empty expression.");
         }
 
-        // Handle operators
-        else if (classifiedToken.type === 'Operator') {
-            while (
-                stack.length &&
-                operators.has(stack[stack.length - 1]) &&
-                precedence[stack[stack.length - 1]] >= precedence[classifiedToken.value]
-            ) {
-                let poppedOperator = stack.pop();
-                outputQueue.push(poppedOperator);
-                console.log(`Popped operator: ${poppedOperator} into outputQueue`);
+        let tokens = tokenize(expression);
+        console.log("Tokenized Expression: ", tokens);
+
+        let stack = [];
+        let outputQueue = [];
+        let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
+        let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
+        let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
+        let previousToken = undefined;
+
+        if (!tokens) throw new Error("Invalid tokenization.");
+
+        // Step 1: Tokenization and classification
+        tokens.forEach(token => {
+            const classifiedToken = classifyToken(token, previousToken);
+            console.log(`Classified Token: ${classifiedToken.type} => ${classifiedToken.value}`);
+            previousToken = token;
+
+            // Handle numbers
+            if (classifiedToken.type === 'Number') {
+                outputQueue.push(parseFloat(classifiedToken.value));
+                console.log(`Pushed number: ${classifiedToken.value} into outputQueue`);
             }
-            stack.push(classifiedToken.value);
-            console.log(`Pushed operator: ${classifiedToken.value} into stack`);
-        }
 
-        // Handle factorial (i.e., '!')
-        else if (classifiedToken.type === 'fact') {
-            let number = outputQueue.pop(); // Get the number before the factorial
-            let result = factorial(number);  // Apply the factorial
-            outputQueue.push(result);  // Push the result back into the outputQueue
-            console.log(`Applied factorial: ${result} to ${number}`);
-        }
-
-        // Handle functions like sin, cos, log
-        else if (classifiedToken.type === 'TrigonometricFunction' || classifiedToken.type === 'LogarithmicFunction' || classifiedToken.type === 'Mathemetic function') {
-            stack.push(classifiedToken.value);
-            console.log(`Pushed function: ${classifiedToken.value} into stack`);
-        }
-
-        // Handle parentheses
-        else if (classifiedToken.type === 'Parenthesis') {
-            if (classifiedToken.value === '(') {
-                stack.push('(');
-                console.log("Pushed '(' into stack");
-            } else {
-                while (stack.length && stack[stack.length - 1] !== '(') {
-                    let popped = stack.pop();
-                    outputQueue.push(popped);
-                    console.log(`Popped operator/function from stack to outputQueue: ${popped}`);
+            // Handle operators
+            else if (classifiedToken.type === 'Operator') {
+                while (
+                    stack.length &&
+                    operators.has(stack[stack.length - 1]) &&
+                    precedence[stack[stack.length - 1]] >= precedence[classifiedToken.value]
+                ) {
+                    let poppedOperator = stack.pop();
+                    outputQueue.push(poppedOperator);
+                    console.log(`Popped operator: ${poppedOperator} into outputQueue`);
                 }
-                stack.pop();  // Remove the '('
-                console.log("Popped '(' from stack");
+                stack.push(classifiedToken.value);
+                console.log(`Pushed operator: ${classifiedToken.value} into stack`);
             }
+
+            // Handle factorial (i.e., '!')
+            else if (classifiedToken.type === 'fact') {
+                let number = outputQueue.pop(); // Get the number before the factorial
+                let result = factorial(number);  // Apply the factorial
+                outputQueue.push(result);  // Push the result back into the outputQueue
+                console.log(`Applied factorial: ${result} to ${number}`);
+            }
+
+            // Handle functions like sin, cos, log
+            else if (classifiedToken.type === 'TrigonometricFunction' || classifiedToken.type === 'LogarithmicFunction' || classifiedToken.type === 'Mathemetic function') {
+                stack.push(classifiedToken.value);
+                console.log(`Pushed function: ${classifiedToken.value} into stack`);
+            }
+
+            // Handle parentheses
+            else if (classifiedToken.type === 'Parenthesis') {
+                if (classifiedToken.value === '(') {
+                    stack.push('(');
+                    console.log("Pushed '(' into stack");
+                } else {
+                    while (stack.length && stack[stack.length - 1] !== '(') {
+                        let popped = stack.pop();
+                        outputQueue.push(popped);
+                        console.log(`Popped operator/function from stack to outputQueue: ${popped}`);
+                    }
+                    stack.pop();  // Remove the '('
+                    console.log("Popped '(' from stack");
+                }
+            }
+            else if (classifiedToken.type === 'root') {
+                stack.push(classifiedToken.value);
+                console.log("Pushed root operator into stack");
+            }
+        });
+
+        // Step 2: Pop any remaining operators from the stack to outputQueue
+        while (stack.length) {
+            let poppedOperator = stack.pop();
+            if (poppedOperator === '(') throw new Error("Mismatched parentheses.");
+            outputQueue.push(poppedOperator);
+            console.log(`Popped remaining operator: ${poppedOperator} into outputQueue`);
         }
 
-        else if (classifiedToken.type === 'root') {
-            stack.push(classifiedToken.value);
-            console.log("Pushed root operator into stack");
-        }
-    });
+        console.log("Output Queue after processing all tokens: ", outputQueue);
 
-    // Step 2: Pop any remaining operators from the stack to outputQueue
-    while (stack.length) {
-        let poppedOperator = stack.pop();
-        outputQueue.push(poppedOperator);
-        console.log(`Popped remaining operator: ${poppedOperator} into outputQueue`);
+        // Step 3: Evaluate the expression from the outputQueue
+        let resultStack = [];
+        outputQueue.forEach(token => {
+            console.log(`Processing token: ${token}`);
+
+            if (typeof token === 'number') {
+                resultStack.push(token);
+                console.log(`Pushed number: ${token} into resultStack`);
+            } else if (operators.has(token)) {
+                let b = resultStack.pop();
+                let a = resultStack.pop();
+                let result;
+                switch (token) {
+                    case '+':
+                        result = a + b;
+                        break;
+                    case '-':
+                        result = a - b;
+                        break;
+                    case '*':
+                        result = a * b;
+                        break;
+                    case '/':
+                        if (b === 0) throw new Error("Division by zero.");
+                        result = a / b;
+                        break;
+                    case '^':
+                        result = Math.pow(a, b);
+                        break;
+                    case '%':
+                        result = a % b;
+                        break;
+                    case '!':
+                        result = factorial(a);  // Apply factorial on the number a
+                        break;
+                }
+                resultStack.push(result);
+                console.log(`Applied operator: ${token} result: ${result}`);
+            } else if (functions.has(token)) {
+                let arg = resultStack.pop();
+                if (isNaN(arg)) throw new Error(`Invalid argument for function: ${token}`);
+                let result = evaluateFunction(token, arg);
+                resultStack.push(result);
+                console.log(`Applied function: ${token} result: ${result}`);
+            }
+            else if (token === '√') {
+                let val = resultStack.pop();  // Pop the value (e.g., 25)
+                if (val < 0) throw new Error("Cannot take the square root of a negative number.");
+                let ans = Math.sqrt(val);  // Calculate the square root
+                resultStack.push(ans);  // Add the result
+                console.log("Square Root Result: " + ans);
+            }
+        });
+
+        if (resultStack.length !== 1) throw new Error("Invalid expression result.");
+
+        console.log("Final Result: ", resultStack[0]);
+        return resultStack[0];  // Final result
+    } catch (error) {
+        console.error("Error: ", error.message);
+        return `Error: ${error.message}`;
     }
-
-    console.log("Output Queue after processing all tokens: ", outputQueue);
-
-    // Step 3: Evaluate the expression from the outputQueue
-    let resultStack = [];
-    outputQueue.forEach(token => {
-        console.log(`Processing token: ${token}`);
-
-        if (typeof token === 'number') {
-            resultStack.push(token);
-            console.log(`Pushed number: ${token} into resultStack`);
-        } else if (operators.has(token)) {
-            let b = resultStack.pop();
-            let a = resultStack.pop();
-            let result;
-            switch (token) {
-                case '+':
-                    result = a + b;
-                    break;
-                case '-':
-                    result = a - b;
-                    break;
-                case '*':
-                    result = a * b;
-                    break;
-                case '/':
-                    result = a / b;
-                    break;
-                case '^':
-                    result = Math.pow(a, b);
-                    break;
-                case '%':
-                    result = a % b;
-                    break;
-                case '!':
-                    result = factorial(a);  // Apply factorial on the number a
-                    break;
-            }
-            resultStack.push(result);
-            console.log(`Applied operator: ${token} result: ${result}`);
-        } else if (functions.has(token)) {
-            let arg = resultStack.pop();
-            let result = evaluateFunction(token, arg);
-            resultStack.push(result);
-            console.log(`Applied function: ${token} result: ${result}`);
-        }
-        else if (token === '√') {
-            let val = resultStack.pop();  // Pop the value (e.g., 25)
-            let ans = Math.sqrt(val);  // Calculate the square root
-            resultStack.push(ans);  // Add the result
-            console.log("Square Root Result: " + ans);
-        }
-    });
-
-    console.log("Final Result: ", resultStack[0]);
-    return resultStack[0];  // Final result
 }
