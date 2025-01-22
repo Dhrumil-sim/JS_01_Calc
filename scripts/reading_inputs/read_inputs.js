@@ -1,4 +1,4 @@
-import { processExpression } from "../utils/classification.js";
+import { processExpression } from "../utils/calculation/classification.js";
 import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
 
 document.addEventListener('DOMContentLoaded', function () {
