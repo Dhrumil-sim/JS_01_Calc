@@ -1,6 +1,5 @@
-import { calculate } from "../utils/calculation/calculation.js";
 import { processExpression } from "../utils/calculation/classification.js";
-import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog, toggleSign } from "../utils/display_inputs/formatted_inputs.js";
+import {displayMathFunction, displayTrigoFunction, displaySquareCube, toggleSquareBtn, displayOneHalf, displayModulus, displayExp, displayMod, displayPi, displayE, displayC, displayDel, displayRoot, displayNFactorial, displayXPowerY, displayLog } from "../utils/display_inputs/formatted_inputs.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('input-display');
@@ -96,11 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'equal':
                 const input = inputField.value;
-                 calculate(input);
+                processExpression(input);
                     break;
-            case 'toggle-sign':
-                toggleSign();
-                break;
             default:
                 // Directly access the clicked button's text when no matching case
                 inputField.value += buttonText;
@@ -178,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
             case 'Enter':
                 const input = inputField.value;
-                calculate(input);
+                processExpression(input);
                     break;
                 break;
             default:
