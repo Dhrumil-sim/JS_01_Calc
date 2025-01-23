@@ -190,6 +190,7 @@ button.dark-theme:focus {
 
 /* Dark Theme for Search History */
 .search-history.dark-theme {
+    
     background-color: #2A2A3D;  /* Darker background for history in dark mode */
     color: #E0E0E0;  /* Light text color for dark mode */
     border: 1px solid #444;  /* Darker border color */
@@ -208,7 +209,105 @@ button.dark-theme:focus {
 }
 /* Show the history card when the show class is added */
 .search-history.show {
-    display: block;  /* Make it visible */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+.card-header {
+    background-color: var(--card-header-bg);
+    color: var(--card-header-text);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.input-field, .output-field {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 10px;
+}
+
+.input-field {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+}
+
+.output-field {
+    background-color: var(--output-bg);
+    color: var(--output-text);
+    border: 1px solid var(--output-border);
+    border-radius: 4px;
+}
+
+/* Light Theme Variables */
+.light-theme {
+    --card-bg: #ffffff;
+    --card-text: #333333;
+    --card-header-bg: #f8f9fa;
+    --card-header-text: #333333;
+    --input-bg: #f1f1f1;
+    --input-text: #333333;
+    --input-border: #ccc;
+    --output-bg: #e9ecef;
+    --output-text: #333333;
+    --output-border: #ddd;
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+    --card-bg: #2c2c2c;
+    --card-text: #e5e5e5;
+    --card-header-bg: #444444;
+    --card-header-text: #e5e5e5;
+    --input-bg: #555555;
+    --input-text: #e5e5e5;
+    --input-border: #666666;
+    --output-bg: #666666;
+    --output-text: #e5e5e5;
+    --output-border: #777777;
+}
+
+/* Optional: Hover effect for cards */
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Focus effect for input/output */
+.input-field:focus, .output-field:focus {
+    border-color: var(--focus-border-color);
+    outline: none;
+}
+
+/* General responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .search-history {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .input-field, .output-field {
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
 }
 
 /* Individual history items */
