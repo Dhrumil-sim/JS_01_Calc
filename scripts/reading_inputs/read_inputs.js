@@ -109,6 +109,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const output = calculate(input);
                 outputField.value = output;
                     break;
+            case 'memory-add':
+            case 'memory-clear':
+            case 'memory-minus':
+            case 'memory-recall':
+            case 'memory-store':
+                 break;
             default:
                 // Directly access the clicked button's text when no matching case
                 inputField.value += buttonText;

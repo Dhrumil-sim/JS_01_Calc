@@ -67,7 +67,6 @@ function evaluateFunction(fn, arg) {
     }
 }
 
-// Main calculation function
 export function calculate(expression) {
     try {
         if (!expression || expression.trim() === '') {
@@ -78,7 +77,7 @@ export function calculate(expression) {
         console.log("Tokenized Expression: ", tokens);
 
         let stack = [];
-        let outputQueue = [];
+        let outputQueue = [];   
         let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
         let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
         let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
@@ -212,6 +211,7 @@ export function calculate(expression) {
             }
         });
 
+        // Ensure there's only one result left in the stack
         if (resultStack.length !== 1) throw new Error("Invalid expression result.");
 
         console.log("Final Result: ", resultStack[0]);
