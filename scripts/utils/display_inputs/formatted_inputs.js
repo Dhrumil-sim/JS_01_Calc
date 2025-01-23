@@ -11,6 +11,28 @@
         inputField.value += value; // Otherwise, append the value
     }
 }
+function toggleFENotation(buttonId) {
+    const toggleButton = document.getElementById(buttonId); // Get the toggle button (F-E button)
+    const display = document.getElementById('output-display'); // Get the display element
+    const currentValue = display.value;
+    
+    // Now that we have a valid number, proceed with the scientific notation toggle
+    if (toggleButton.innerHTML.endsWith('*')) {
+        // If scientific notation is active, convert the number to scientific notation
+       let exponent = Math.floor(Math.log10(Math.abs(currentValue)));  // Get the exponent
+        let mantissa = currentValue / Math.pow(10, exponent);  // Get the mantissa
+
+        // Format the number in scientific notation
+        let scientificNotation = mantissa.toFixed(4) + 'e' + exponent;
+
+        console.log(scientificNotation);
+        display.value = scientificNotation;
+    } else {
+        // If scientific notation is not active, convert the number to a fixed-point format
+        display.innerHTML = currentValue.toFixed(4); // Or display.value for input fields
+    }
+}
+
 export function displaySquareCube()
     {
          if(squareButton.id === 'square'){
@@ -67,6 +89,20 @@ export function displaySquareCube()
                 toggleButton.id = 'deg-toggle'; // Update the ID dynamically
             }
     
+            setTimeout(() => {
+                toggleButton.classList.remove('toggling');
+            }, 500); // 1000ms = 1 second
+        }
+        else if(buttonId==='fe-toggle')
+        {
+            if (toggleButton.innerHTML.endsWith('*')) {
+                toggleButton.innerHTML = toggleButton.innerHTML.slice(0, -1); // Remove the last character ('*')
+
+            } else {
+                toggleButton.innerHTML += '*'; // Add the '*' at the end
+                toggleFENotation('fe-toggle');
+            }
+            
             setTimeout(() => {
                 toggleButton.classList.remove('toggling');
             }, 500); // 1000ms = 1 second
