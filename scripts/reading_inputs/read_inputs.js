@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             case 'memory-minus':
             case 'memory-recall':
             case 'memory-store':
+            case 'history-btn':
                  break;
             default:
                 // Directly access the clicked button's text when no matching case

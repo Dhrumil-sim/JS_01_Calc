@@ -1,6 +1,6 @@
 // memory_functions.js
 
-let memory = [];  // Stack to hold multiple memory values
+let memory = JSON.parse(localStorage.getItem('memory')) || [];  // Load memory from localStorage or initialize it as empty array
 
 export function setupMemoryButtons() {
     const memoryClearButton = document.getElementById('memory-clear');
@@ -11,11 +11,17 @@ export function setupMemoryButtons() {
 
     const outputField = document.getElementById('output-display');
 
+    // Update localStorage with the latest memory array
+    function updateLocalStorage() {
+        localStorage.setItem('memory', JSON.stringify(memory));
+    }
+
     // Memory Clear - Clears the memory stack
     memoryClearButton.addEventListener('click', function () {
         memory = [];
         console.log("Memory Cleared");
         outputField.value = "";  // Optional: clear the display
+        updateLocalStorage();  // Update the localStorage after clearing memory
         console.log("Current Memory Stack: ", memory);
     });
 
@@ -28,6 +34,7 @@ export function setupMemoryButtons() {
             const lastMemoryValue = memory.pop();  // Pop the last value from the stack
             console.log("Memory Recalled: " + lastMemoryValue);
             outputField.value = lastMemoryValue;  // Display the last memory value
+            updateLocalStorage();  // Update localStorage after recalling value
         }
         console.log("Current Memory Stack: ", memory);
     });
@@ -38,6 +45,7 @@ export function setupMemoryButtons() {
         if (!isNaN(currentDisplay)) {
             memory.push(currentDisplay);  // Push the current value into the stack
             console.log("Memory Stored: " + currentDisplay);
+            updateLocalStorage();  // Update localStorage after storing the value
         }
         console.log("Current Memory Stack: ", memory);
     });
@@ -46,8 +54,11 @@ export function setupMemoryButtons() {
     memoryAddButton.addEventListener('click', function () {
         const currentDisplay = parseFloat(outputField.value);
         if (!isNaN(currentDisplay) && memory.length > 0) {
-            memory[memory.length - 1] += currentDisplay;  // Add to the last stored memory value
+            // Avoid adding the current value to memory twice
+            let lastMemoryValue = memory[memory.length - 1];
+            memory[memory.length - 1] = lastMemoryValue + currentDisplay;  // Add to the last stored memory value
             console.log("Added to Memory. New Memory Value: " + memory[memory.length - 1]);
+            updateLocalStorage();  // Update localStorage after adding the value to memory
         }
         console.log("Current Memory Stack: ", memory);
     });
@@ -58,9 +69,11 @@ export function setupMemoryButtons() {
         if (!isNaN(currentDisplay) && memory.length > 0) {
             memory[memory.length - 1] -= currentDisplay;  // Subtract from the last stored memory value
             console.log("Subtracted from Memory. New Memory Value: " + memory[memory.length - 1]);
+            updateLocalStorage();  // Update localStorage after subtracting
         } else if (memory.length === 0) {
             console.log("No memory to subtract from.");
         }
         console.log("Current Memory Stack: ", memory);
     });
 }
+

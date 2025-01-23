@@ -12,7 +12,7 @@ body {
     background-color: #f4f4f4;  /* Light theme background */
     display: flex;  /* Use flexbox */
     justify-content: center;  /* Center horizontally */
-    align-items: center;  /* Center vertically */
+    align-items: flex-start;  /* Center vertically */
     padding: 20px;  /* Optional, adds spacing around content */
 }
 
@@ -87,6 +87,7 @@ button.dark-theme {
     transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth transition on hover */
 }
 
+
 button.dark-theme:hover {
     background-color: #594A7A;  /* Darker purple for hover */
     transform: scale(1.05);  /* Slight enlargement on hover */
@@ -149,17 +150,22 @@ button.dark-theme:focus {
 
 /* Main container (calculator) */
 .main {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 75px;
+    margin-bottom: 20px;
+    display: flex;  /* Use flexbox for horizontal layout */
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;  /* Align content horizontally */
     background-color: #fff;  /* Light background for the calculator */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 555px;  /* Fixed width for the calculator */
-    z-index: 10;  /* Ensure the main card appears above the background */
+    z-index: 10;
     max-width: 100%;  /* Prevent overflow on smaller screens */
+}
+.main.history-visible {
+    width: 800px;  /* Set the width to 800px when history is visible */
 }
 
 /* Calculator body container */
@@ -168,6 +174,78 @@ button.dark-theme:focus {
     flex-direction: column;
     width: 100%;
 }
+.search-history {
+    display: none;  /* Initially hidden */
+    width: 35%;  /* Set width of the history section */
+    padding: 20px;
+    background-color: #f9f9f9;  /* Light background color for the history */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    overflow-y: auto;  /* Allow scrolling if content exceeds the height */
+    transition: all 0.3s ease-in-out;  /* Smooth transition when toggling visibility */
+    margin-left: 20px;  /* Space between the calculator and history */
+    height: auto;  /* Adjust height to fit content */
+    max-height: 810px;
+}
+
+/* Dark Theme for Search History */
+.search-history.dark-theme {
+    background-color: #2A2A3D;  /* Darker background for history in dark mode */
+    color: #E0E0E0;  /* Light text color for dark mode */
+    border: 1px solid #444;  /* Darker border color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Darker shadow to match dark theme */
+}
+
+
+
+.search-history.dark-theme p {
+    color: #ccc;  /* Lighter text for history items */
+    border-bottom: 1px solid #555;  /* Darker border between history items */
+}
+
+.search-history.dark-theme p:hover {
+    background-color: #3a3a5a;  /* Darker background on hover for history items */
+}
+/* Show the history card when the show class is added */
+.search-history.show {
+    display: block;  /* Make it visible */
+}
+
+/* Individual history items */
+.search-history p {
+    font-size: 14px;
+    color: #555;  /* Slightly darker gray for text */
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;  /* Light border to separate items */
+    padding-bottom: 10px;
+}
+
+/* Styling for the toggle button to show history */
+.toggle-history-btn {
+    background-color: #3A8DFF;  /* Lighter blue for the button */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+    margin-bottom: 20px;  /* Add space below the button */
+}
+
+.toggle-history-btn:hover {
+    background-color: #0065A1;  /* Darker blue on hover */
+}
+/* Adjusting history visibility */
+.toggle-history-btn:active + .search-history {
+    display: block;  /* Show the history when button is clicked */
+}
+
+/* Make sure the history section can scroll if there are too many items */
+.search-history {
+    overflow-y: auto;  /* Scrollable if content exceeds height */
+}
+
 
 .display {
     margin-bottom: 20px;
