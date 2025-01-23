@@ -13,7 +13,8 @@ export function classifyToken(token, previousToken) {
         return { type: 'Number', value: token };
     }
    
-    else if (/[a-zA-Z]+/.test(token) && ['cos', 'sin', 'tan', 'sec', 'csc', 'cot'].includes(token)) {
+    const trigFunctions = ['sin', 'cos', 'tan', 'cot', 'sec', 'csc'];
+    if (trigFunctions.includes(token)) {
         return { type: 'TrigonometricFunction', value: token };
     }
     // If the token is an operator

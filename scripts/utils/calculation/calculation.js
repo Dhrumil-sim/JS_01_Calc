@@ -10,8 +10,37 @@ function factorial(n) {
     return result;
 }
 
-// Helper function to evaluate mathematical functions
+// Track current mode (DEG or RAD)
+let currentMode = 'DEG';  // Default is DEG (degree)
+
+// Function to get the current mode
+function getCurrentMode() {
+    const degButton = document.getElementById('deg-toggle');
+    const radButton = document.getElementById('rad-toggle');
+    
+    if (degButton && degButton.innerHTML === 'DEG') {
+        currentMode = 'DEG';
+    } else if (radButton && radButton.innerHTML === 'RAD') {
+        currentMode = 'RAD';
+    }
+
+    return currentMode;
+}
+
+// Helper function to convert degrees to radians
+function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+
 function evaluateFunction(fn, arg) {
+
+    const mode = getCurrentMode();
+    
+    // If in DEG mode, convert the argument to radians for trig functions
+    if (mode === 'DEG') {
+        arg = degreesToRadians(arg);  // Convert to radians if in DEG mode
+    }
     switch (fn) {
         case 'sin':
             return Math.sin(arg);
@@ -19,6 +48,8 @@ function evaluateFunction(fn, arg) {
             return Math.cos(arg);
         case 'tan':
             return Math.tan(arg);
+        case 'cot':  // Add cotangent function here
+            return 1 / Math.tan(arg);  // cot(x) = 1 / tan(x)
         case 'log':
             return Math.log(arg);  // natural log
         case 'ln':
@@ -26,7 +57,7 @@ function evaluateFunction(fn, arg) {
         case 'sqrt':
             return Math.sqrt(arg); // square root
         case 'rand':
-            return Math.random(); // random number between 0 and 1
+            return Math.random(arg); // random number between 0 and 1
         case 'ceil':
             return Math.ceil(arg); // ceiling of a number
         case 'floor':

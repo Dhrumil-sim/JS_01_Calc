@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 displayMod();
                 break;
             case 'deg-toggle':
+            case 'rad-toggle':
                 toggleSquareBtn(buttonId);
                 break;
             case 'fe-toggle':

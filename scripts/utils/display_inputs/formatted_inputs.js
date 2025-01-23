@@ -39,7 +39,7 @@ export function displaySquareCube()
         
         // Check if the button clicked is the 2nd-toggle button
         if (buttonId === '2nd-toggle') {
-            const squareButton = document.getElementById('square') || document.getElementById('cube');  // Assuming you have a square button
+            const squareButton = document.getElementById('square') || document.getElementById('cube');
             
             squareButton.classList.add('toggling');
             
@@ -54,11 +54,24 @@ export function displaySquareCube()
             setTimeout(() => {
                 squareButton.classList.remove('toggling');
             }, 500); // 1000ms = 1 second
-        } else {
-            // For other toggle buttons, check if * is already present
+        } 
+        else if (buttonId === 'deg-toggle' || buttonId === 'rad-toggle') {
+            // For DEG and RAD toggle buttons
             toggleButton.classList.add('toggling');
             
-            // If '*' is present, remove it; otherwise, add it
+            if (toggleButton.innerHTML === 'DEG') {
+                toggleButton.innerHTML = 'RAD';
+                toggleButton.id = 'rad-toggle'; // Update the ID dynamically
+            } else if (toggleButton.innerHTML === 'RAD') {
+                toggleButton.innerHTML = 'DEG';
+                toggleButton.id = 'deg-toggle'; // Update the ID dynamically
+            }
+    
+            setTimeout(() => {
+                toggleButton.classList.remove('toggling');
+            }, 500); // 1000ms = 1 second
+        }
+        else {
             if (toggleButton.innerHTML.endsWith('*')) {
                 toggleButton.innerHTML = toggleButton.innerHTML.slice(0, -1); // Remove the last character ('*')
             } else {
@@ -70,6 +83,7 @@ export function displaySquareCube()
             }, 500); // 1000ms = 1 second
         }
     }
+    
     
 
 export function displayOneHalf()
