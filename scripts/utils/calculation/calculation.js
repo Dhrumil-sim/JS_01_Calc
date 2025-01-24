@@ -1,5 +1,5 @@
 import { tokenize, classifyToken } from "./classification.js";
-
+import {storeHistory} from "../history_store.js";
 // Helper function to calculate factorial (n!)
 function factorial(n) {
     if (n === 0 || n === 1) return 1;
@@ -215,7 +215,10 @@ export function calculate(expression) {
         if (resultStack.length !== 1) throw new Error("Invalid expression result.");
 
         console.log("Final Result: ", resultStack[0]);
+        const time = new Date();
+        storeHistory(time,expression,resultStack[0]);
         return resultStack[0];  // Final result
+
     } catch (error) {
         console.error("Error: ", error.message);
         return `Error: ${error.message}`;

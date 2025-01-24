@@ -134,7 +134,8 @@
     </div>
     <script type="module" src="scripts/reading_inputs/read_inputs.js"></script>
 </body>
-<script>
+<script type="module">
+    import {updateHistoryUI} from './scripts/utils/history_store.js';
     // Function to update the current date and time
     function updateTime() {
         const now = new Date();
@@ -147,7 +148,7 @@
 
     // Call updateTime every second
     setInterval(updateTime, 1000);
-
+    
     // Dark theme toggle functionality
     const themeToggleButton = document.getElementById('theme-toggle');
     themeToggleButton.addEventListener('click', () => {
@@ -173,16 +174,21 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+        let historyUpdateInterval;
         document.querySelector('.toggle-history-btn').addEventListener('click', function () {
             // Toggle visibility of the history section
             const toggleButton = document.querySelector('.toggle-history-btn');
             const historySection = document.querySelector('.search-history');
             historySection.classList.toggle('show');
+            
 
             if (historySection.classList.contains('show')) {
                 toggleButton.textContent = 'Hide History';  // Update the button text when history is visible
+                
+                historyUpdateInterval = setInterval(updateHistoryUI, 5000);
             } else {
                 toggleButton.textContent = 'Show History';  // Update the button text when history is hidden
+                clearInterval(historyUpdateInterval);
             }
 
             // Toggle width of the main container
@@ -192,6 +198,7 @@
     });
     // Initialize time on page load
     updateTime();
+    updateHistoryUI();
 </script>
 
 

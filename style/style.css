@@ -32,7 +32,115 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+.search-history {
+    display: none;  
+    width: 35%;  
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    overflow-y: auto;  /* Allow scroll when content overflows */
+    margin-left: 20px;
+    height: 500px;  /* Ensure history section has a defined height */
+    max-height: 810px;  /* Prevent it from growing too large */
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
 
+/* Dark theme styles for search history */
+.search-history.dark-theme {
+    background-color: #2A2A3D;  
+    color: #E0E0E0;
+    border: 1px solid #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
+}
+
+/* Show the history section */
+.search-history.show {
+    display: flex;
+    flex-direction: column;
+    max-height: 800px;
+    gap: 15px;
+}
+
+/* Styling for cards inside history */
+.card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    margin-bottom: 10px;  /* Space between cards */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;  /* Prevent cards from shrinking */
+}
+
+/* Card header styling */
+.card-header {
+    background-color: var(--card-header-bg);
+    color: var(--card-header-text);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Input field in the card */
+.input-field, .output-field {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 10px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+}
+
+/* Light theme variable values */
+.light-theme {
+    --card-bg: #ffffff;
+    --card-text: #333333;
+    --card-header-bg: #f8f9fa;
+    --card-header-text: #333333;
+    --input-bg: #f1f1f1;
+    --input-text: #333333;
+    --input-border: #ccc;
+}
+
+/* Dark theme variable values */
+.dark-theme {
+    --card-bg: #2c2c2c;
+    --card-text: #e5e5e5;
+    --card-header-bg: #444444;
+    --card-header-text: #e5e5e5;
+    --input-bg: #555555;
+    --input-text: #e5e5e5;
+    --input-border: #666666;
+}
+
+/* Optional hover effect for cards */
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    .search-history {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .input-field, .output-field {
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
+}
 .time-container {
     font-size: 18px;
     color: #E0E0E0;  /* Light gray text color */
@@ -213,7 +321,7 @@ button.dark-theme:focus {
     flex-direction: column;
     padding: 20px;
     gap: 15px;
-    max-height: 400px;
+    max-height: 810px;
     overflow-y: auto;
 }
 
