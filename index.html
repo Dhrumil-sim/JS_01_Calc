@@ -21,7 +21,9 @@
             <button class="toggle-history-btn" id="history-btn">Show History</button>
             <div class="display">
 
-                <input type="text" name="input" id="input-display" class="input-display">
+                <input type="text" name="input" id="input-display" class="input-display" 
+                pattern="(\d+(\.\d+)?|[a-zA-Z]+|[+\-*/^()|]|[^a-zA-Z0-9\s]|\b(cos|sin|tan|sec|csc|cot)\b)+" 
+                required title="Invalid expression">
 
                 <input type="text" name="input" id="output-display" class="output-display">
             </div>

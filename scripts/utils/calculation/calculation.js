@@ -28,9 +28,9 @@ function getCurrentMode() {
 }
 
 // Helper function to convert degrees to radians
-function degreesToRadians(degrees) {
+function degreesToRadians(degrees) {    
     return degrees * (Math.PI / 180);
-}
+}   
 
 
 function evaluateFunction(fn, arg) {

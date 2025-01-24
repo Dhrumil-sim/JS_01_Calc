@@ -1,4 +1,5 @@
 
+const outputField = document.getElementById('output-field');
 // Tokenizer: Splitting the expression into tokens
 export function tokenize(expression) {
     // Regex to match numbers, operators, variables, and parentheses
@@ -49,21 +50,27 @@ export function classifyToken(token, previousToken) {
          return {type: 'Mathemetic function',value: token};
     }
     else {
-        return { type: 'Unknown', value: token };
+        // If the token is not recognized, throw an error
+        throw new Error(`Unknown token: ${token}`);
     }
 }
 
-// Main function to process and log tokens with their types
 export function processExpression(expression) {
     let tokens = tokenize(expression);
     console.log(tokens);
     let previousToken = undefined;
+
     if (tokens) {
-        tokens.forEach(token => {
-            const classifiedToken = classifyToken(token);
-            console.log(`${classifiedToken.type}: ${classifiedToken.value}`);
-            previousToken = token; 
-        });
+        try {
+            tokens.forEach(token => {
+                const classifiedToken = classifyToken(token, previousToken);
+                console.log(`${classifiedToken.type}: ${classifiedToken.value}`);
+                previousToken = token; 
+            });
+        } catch (error) {
+            outputField.value = error.message;
+            console.error(error.message);  // This will log the error message (e.g., "Unknown token: sini")
+        }
     } else {
         console.log("Invalid expression.");
     }
