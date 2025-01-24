@@ -1,9 +1,10 @@
-![Image](https://github.com/user-attachments/assets/3eb94b26-6e51-4349-9c92-5113d7bcdff1)
-![Image](https://github.com/user-attachments/assets/7bca5d8e-3bdf-4c8e-af17-878f5aa8664f)
-![Image](https://github.com/user-attachments/assets/e15bb34d-94da-494a-b7bd-8ff1441f0c7c)
 # Scientific Calculator
 
 The project involves building a **responsive Scientific Calculator** that supports both basic arithmetic operations and advanced scientific functions.
+
+![Image](https://github.com/user-attachments/assets/3eb94b26-6e51-4349-9c92-5113d7bcdff1)
+![Image](https://github.com/user-attachments/assets/7bca5d8e-3bdf-4c8e-af17-878f5aa8664f)
+![Image](https://github.com/user-attachments/assets/e15bb34d-94da-494a-b7bd-8ff1441f0c7c)
 
 ### Basic Operations:
 - Addition (+), Subtraction (-), Multiplication (*), Division (/), Modulus (%), Equal (=)
