@@ -1,4 +1,5 @@
 ![Image](https://github.com/user-attachments/assets/3eb94b26-6e51-4349-9c92-5113d7bcdff1)
+![Image](https://github.com/user-attachments/assets/7bca5d8e-3bdf-4c8e-af17-878f5aa8664f)
 ![Image](https://github.com/user-attachments/assets/e15bb34d-94da-494a-b7bd-8ff1441f0c7c)
 # Scientific Calculator
 
