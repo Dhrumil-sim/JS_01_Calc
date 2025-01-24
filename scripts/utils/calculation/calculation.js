@@ -48,6 +48,8 @@ function evaluateFunction(fn, arg) {
             return Math.cos(arg);
         case 'tan':
             return Math.tan(arg);
+        case 'sec':
+            return Math.sec(arg);
         case 'cot':  // Add cotangent function here
             return 1 / Math.tan(arg);  // cot(x) = 1 / tan(x)
         case 'log':
@@ -80,7 +82,8 @@ export function calculate(expression) {
         let outputQueue = [];   
         let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
         let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-        let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
+        let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor','cot','sec','cosec'
+        ]);
         let previousToken = undefined;
 
         if (!tokens) throw new Error("Invalid tokenization.");

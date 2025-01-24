@@ -50,8 +50,7 @@
                         <option value="cos">cos</option>
                         <option value="tan">tan</option>
                         <option value="cot">cot</option>
-                        <option value="sec">sec</option>
-                        <option value="csc">csc</option>
+                        
                     </select>
                 </div>
                 <div class="function">
@@ -151,27 +150,52 @@
     
     // Dark theme toggle functionality
     const themeToggleButton = document.getElementById('theme-toggle');
-    themeToggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-        document.querySelector('.main').classList.toggle('dark-theme');
-        document.querySelector('.calc-body').classList.toggle('dark-theme');
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.classList.toggle('dark-theme');
-        });
-        const displayElements = document.querySelectorAll('.input-display, .output-display');
-        displayElements.forEach(element => {
-            element.classList.toggle('dark-theme');
-        });
-        document.querySelector('.search-history').classList.toggle('dark-theme');
 
-        // Change button text based on the theme
-        if (document.body.classList.contains('dark-theme')) {
-            themeToggleButton.textContent = 'Light Mode';
-        } else {
-            themeToggleButton.textContent = 'Dark Mode';
-        }
+// Check if a theme is already saved in localStorage
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-theme');
+    document.querySelector('.main').classList.add('dark-theme');
+    document.querySelector('.calc-body').classList.add('dark-theme');
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.add('dark-theme');
     });
+    const displayElements = document.querySelectorAll('.input-display, .output-display');
+    displayElements.forEach(element => {
+        element.classList.add('dark-theme');
+    });
+    document.querySelector('.search-history').classList.add('dark-theme');
+    themeToggleButton.textContent = 'Light Mode';
+} else {
+    themeToggleButton.textContent = 'Dark Mode';
+}
+
+themeToggleButton.addEventListener('click', () => {
+    // Toggle the dark theme classes
+    document.body.classList.toggle('dark-theme');
+    document.querySelector('.main').classList.toggle('dark-theme');
+    document.querySelector('.calc-body').classList.toggle('dark-theme');
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.toggle('dark-theme');
+    });
+    const displayElements = document.querySelectorAll('.input-display, .output-display');
+    displayElements.forEach(element => {
+        element.classList.toggle('dark-theme');
+    });
+    document.querySelector('.search-history').classList.toggle('dark-theme');
+
+    // Change button text based on the theme
+    if (document.body.classList.contains('dark-theme')) {
+        themeToggleButton.textContent = 'Light Mode';
+        // Save the dark theme in localStorage
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeToggleButton.textContent = 'Dark Mode';
+        // Remove the theme from localStorage (Light Mode)
+        localStorage.removeItem('theme');
+    }
+});
 
     document.addEventListener('DOMContentLoaded', () => {
         let historyUpdateInterval;
@@ -198,7 +222,7 @@
     });
     // Initialize time on page load
     updateTime();
-    updateHistoryUI();
+    
 </script>
 
 
