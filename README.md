@@ -1,4 +1,5 @@
 ![Image](https://github.com/user-attachments/assets/d563b988-8d81-4767-9621-0b3f674d2f17)
+![Image](https://github.com/user-attachments/assets/4e494f41-8cc6-4af9-859e-310e56f00064)
 # Scientific Calculator
 
 The project involves building a **responsive Scientific Calculator** that supports both basic arithmetic operations and advanced scientific functions.
