@@ -2,9 +2,14 @@
 
 The project involves building a **responsive Scientific Calculator** that supports both basic arithmetic operations and advanced scientific functions.
 
+### Light Mode
 ![Image](https://github.com/user-attachments/assets/3eb94b26-6e51-4349-9c92-5113d7bcdff1)
+### Light Mode - History
 ![Image](https://github.com/user-attachments/assets/7bca5d8e-3bdf-4c8e-af17-878f5aa8664f)
+### Dark Mode
 ![Image](https://github.com/user-attachments/assets/e15bb34d-94da-494a-b7bd-8ff1441f0c7c)
+### Dark Mode - History
+![Image](https://github.com/user-attachments/assets/45744384-00bd-4b8b-8fd3-ccb3791466a3)
 
 ### Basic Operations:
 - Addition (+), Subtraction (-), Multiplication (*), Division (/), Modulus (%), Equal (=)
