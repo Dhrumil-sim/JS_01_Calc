@@ -1,7 +1,8 @@
 # Scientific Calculator
 
 The project involves building a **responsive Scientific Calculator** that supports both basic arithmetic operations and advanced scientific functions.
-[Vercel]:(https://javascriptcalulator.vercel.app/)
+
+# Vercel:(https://javascriptcalulator.vercel.app/)
 ### Light Mode
 ![Image](https://github.com/user-attachments/assets/3eb94b26-6e51-4349-9c92-5113d7bcdff1)
 ### Light Mode - History
