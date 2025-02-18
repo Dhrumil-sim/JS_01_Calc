@@ -9,6 +9,10 @@ function factorial(n) {
     }
     return result;
 }
+function log(n) {
+    if (n <= 0) throw new Error("Logarithm undefined for non-positive values.");
+    return Math.log10(n);  // Logarithm base 10
+}
 
 // Track current mode (DEG or RAD)
 let currentMode = 'DEG';  // Default is DEG (degree)
@@ -43,6 +47,7 @@ function evaluateFunction(fn, arg) {
     }
     switch (fn) {
         case 'sin':
+            console.log("sin is triggered");
             return Math.sin(arg);
         case 'cos':
             return Math.cos(arg);
@@ -50,8 +55,6 @@ function evaluateFunction(fn, arg) {
             return Math.tan(arg);
         case 'cot':  // Add cotangent function here
             return 1 / Math.tan(arg);  // cot(x) = 1 / tan(x)
-        case 'log':
-            return Math.log(arg);  // natural log
         case 'ln':
             return Math.log(arg);  // natural log (same as log)
         case 'sqrt':
@@ -80,7 +83,7 @@ export function calculate(expression) {
         let outputQueue = [];   
         let operators = new Set(['+', '-', '*', '/', '^', '%', '!']);
         let precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 2, '!': 4 };
-        let functions = new Set(['sin', 'cos', 'tan', 'log', 'ln', 'sqrt', 'rand', 'ceil', 'floor']);
+        let functions = new Set(['sin', 'cos', 'tan', 'sqrt', 'rand', 'ceil', 'floor']);
         let previousToken = undefined;
 
         if (!tokens) throw new Error("Invalid tokenization.");
@@ -119,6 +122,12 @@ export function calculate(expression) {
                 outputQueue.push(result);  // Push the result back into the outputQueue
                 console.log(`Applied factorial: ${result} to ${number}`);
             }
+            else if(classifiedToken.type === 'log' || classifiedToken.type === 'ln') {
+                // Check the next token after 'log' is a parenthesis '('
+                stack.push(classifiedToken.value);  
+                console.log("I am triggered");
+            }
+            
 
             // Handle functions like sin, cos, log
             else if (classifiedToken.type === 'TrigonometricFunction' || classifiedToken.type === 'LogarithmicFunction' || classifiedToken.type === 'Mathemetic function') {
@@ -190,7 +199,16 @@ export function calculate(expression) {
                         result = a % b;
                         break;
                     case '!':
+                        console.log("Fact is triggered");
                         result = factorial(a);  // Apply factorial on the number a
+                        break;
+                    case 'log':  // Handle log (base 10)
+                        console.log("Log base 10 is triggered");
+                        result = log(a);
+                        break;
+                    case 'ln':  // Handle ln (natural log)
+                        console.log("Natural log is triggered");
+                        result = Math.log(a);  // natural logarithm
                         break;
                 }
                 resultStack.push(result);
@@ -209,6 +227,23 @@ export function calculate(expression) {
                 resultStack.push(ans);  // Add the result
                 console.log("Square Root Result: " + ans);
             }
+            else if(token==='log')
+            {
+                let val = resultStack.pop();
+                let ans = log(val);
+                resultStack.push(ans);
+                console.log("Log result :"+ans);
+                
+            }
+            else if (token === 'ln') {
+                let val = resultStack.pop();  // Pop the argument value from the resultStack
+                if (val <= 0) throw new Error("Natural logarithm undefined for non-positive values.");
+                let ans = Math.log(val);  // Calculate the natural logarithm (base e)
+                resultStack.push(ans);  // Push the result back into the stack
+                console.log("LN result: " + ans);  // Log the result
+            }
+            
+        
         });
 
         // Ensure there's only one result left in the stack

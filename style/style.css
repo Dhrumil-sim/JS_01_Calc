@@ -32,34 +32,46 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+/* Default (desktop view) */
 .search-history {
-    display: none;  
-    width: 35%;  
+    display: none;
+    width: 35%;
     background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
-    overflow-y: auto;  /* Allow scroll when content overflows */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;  /* Ensure scrolling is enabled */
     margin-left: 20px;
-    height: 500px;  /* Ensure history section has a defined height */
+    height: 500px;  /* Set a fixed height */
     max-height: 810px;  /* Prevent it from growing too large */
     padding: 20px;
     transition: all 0.3s ease-in-out;
 }
 
-/* Dark theme styles for search history */
-.search-history.dark-theme {
-    background-color: #2A2A3D;  
-    color: #E0E0E0;
-    border: 1px solid #444;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
-}
-
-/* Show the history section */
+/* Show history section when toggled */
 .search-history.show {
     display: flex;
     flex-direction: column;
-    max-height: 800px;
     gap: 15px;
+    max-height: 810px;  /* Ensure it doesn't grow beyond 810px */
+    overflow-y: auto;  /* Ensure scrolling works */
+}
+
+/* Responsive adjustments for mobile screens */
+@media screen and (max-width: 768px) {
+    .search-history {
+        width: 100%;
+        max-height: 60vh;  /* Set max-height to 60% of the viewport height */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-left: 0;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000; /* Keep it above other elements */
+        overflow-y: auto; /* Ensure scrolling works */
+    }
 }
 
 /* Styling for cards inside history */

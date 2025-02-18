@@ -41,9 +41,13 @@ export function classifyToken(token, previousToken) {
     {
         return {type: 'fact', value:token};
     }
-    else if(['log','ln'].includes(token))
+    else if('log'.includes(token))
     {
-         return {type: 'logarithmic function', value: token};
+         return {type: 'log', value: token};
+    }
+    else if('ln'.includes(token))
+    {
+        return {type: 'ln',value:token};
     }
     else if(['rand','ceil','floor','abs'].includes(token))
     {

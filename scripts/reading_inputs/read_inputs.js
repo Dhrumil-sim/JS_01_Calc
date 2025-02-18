@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize memory buttons (MC, MR, MS, M+)
     setupMemoryButtons();
 
-    // Button Click Event Handling
+    // Button Click Event Handling  
     buttons.forEach(button => {
         button.addEventListener('click', function (e) {
             let buttonId = this.id;
