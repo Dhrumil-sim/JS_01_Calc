@@ -576,7 +576,7 @@ button:hover {
         width: 100%;  /* Ensure it uses full width */
     }
 
-    .search-history {
+    .search-history.show{
       
         display: flex;  /* Use flexbox for horizontal layout */
         overflow-x: auto;  /* Enable horizontal scrolling */
