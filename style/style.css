@@ -32,46 +32,21 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-/* Default (desktop view) */
-.search-history {
-    display: none;
-    width: 35%;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;  /* Ensure scrolling is enabled */
-    margin-left: 20px;
-    height: 500px;  /* Set a fixed height */
-    max-height: 810px;  /* Prevent it from growing too large */
-    padding: 20px;
-    transition: all 0.3s ease-in-out;
+
+/* Dark theme styles for search history */
+.search-history.dark-theme {
+    background-color: #2A2A3D;  
+    color: #E0E0E0;
+    border: 1px solid #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
 }
 
-/* Show history section when toggled */
+/* Show the history section */
 .search-history.show {
     display: flex;
     flex-direction: column;
+    max-height: 800px;
     gap: 15px;
-    max-height: 810px;  /* Ensure it doesn't grow beyond 810px */
-    overflow-y: auto;  /* Ensure scrolling works */
-}
-
-/* Responsive adjustments for mobile screens */
-@media screen and (max-width: 768px) {
-    .search-history {
-        width: 100%;
-        max-height: 60vh;  /* Set max-height to 60% of the viewport height */
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-left: 0;
-        padding: 15px;
-        border-radius: 15px 15px 0 0;
-        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000; /* Keep it above other elements */
-        overflow-y: auto; /* Ensure scrolling works */
-    }
 }
 
 /* Styling for cards inside history */
@@ -594,4 +569,32 @@ button:hover {
 .search-history p {
     font-size: 14px;
     color: #888;  /* Gray color for text */
+}
+@media screen and (max-width: 768px) {
+    .main {
+        flex-direction: column; /* Stack the calculator components vertically */
+        width: 100%;  /* Ensure it uses full width */
+    }
+
+    .search-history {
+      
+        display: flex;  /* Use flexbox for horizontal layout */
+        overflow-x: auto;  /* Enable horizontal scrolling */
+        flex-wrap: nowrap;  /* Prevent wrapping of history items */
+        padding: 10px;
+        width: 100%;
+        gap: 10px;  /* Add space between items *
+        
+    }
+
+    /* Optional: Adjust card and input styles for smaller screens */
+    .card {
+        padding: 10px;
+    }
+
+    .input-field, .output-field {
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
+}
 }
